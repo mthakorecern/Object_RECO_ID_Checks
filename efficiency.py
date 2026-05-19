@@ -91,22 +91,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     "muons_tightId": 0,
 
                     "boosted_taus_antiEle_antiMu": 0,
-                },
-
-                "reco_objects": {
-                    "electrons_total": 0,
-                    "electrons_truthMatchedToGen": 0,
-                    "electrons_from_tau": 0,
-                    "electrons_from_higgs_tau": 0,
-
-                    "muons_total": 0,
-                    "muons_truthMatchedToGen": 0,
-                    "muons_from_tau": 0,
-                    "muons_from_higgs_tau": 0,
-
-                    "hps_taus_total": 0,
-                    "boosted_taus_total": 0,
-                },
+                }
             },
         }
 
@@ -247,11 +232,6 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         return -1
 
     def _find_tau_higgs_resonance_ancestors_from_lepton(self, genparts, start_idx):
-        """
-        Starting from a stable GEN electron/muon, walk upward:
-
-          lepton -> tau -> Higgs -> optional resonance
-        """
 
         visited = set()
         idx = self._mother_idx(genparts, start_idx)
@@ -282,11 +262,6 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         return tau_idx, higgs_idx, resonance_idx
 
     def _find_higgs_resonance_from_tau(self, genparts, tau_idx):
-        """
-        Starting from a GenPart tau index, find:
-
-          tau -> Higgs -> optional resonance
-        """
 
         if not self._valid_index(tau_idx, genparts):
             return -1, -1
