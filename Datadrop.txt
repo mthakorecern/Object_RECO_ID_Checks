@@ -1,0 +1,51 @@
+
+drop CaloMET_*
+drop CorrT1METJet_*
+drop DeepMETResolutionTune_*
+drop DeepMETResponseTune_*
+drop FsrPhoton_*
+drop nFsrPhoton
+drop HLTriggerFinalPath
+drop HLTriggerFirstPath
+drop HTXS_*
+drop IsoTrack_*
+drop nIsoTrack
+drop L1_*
+drop L1Reco_*
+drop LowPtElectron_*
+drop nLowPtElectron
+drop OtherPV_*
+drop nOtherPV
+drop PPSLocalTrack_*
+drop nPPSLocalTrack
+drop Photon_*
+drop nPhoton
+drop *Proton_*
+drop SV_*
+drop nSV
+drop *SoftActivityJet*
+drop TrkMET_*
+drop TrigObj_*
+drop nTrigObj
+
+
+#Drop all HLT branches except the relevant ones
+drop HLT_*
+keep HLT_PFMETNoMu120_PFMHTNoMu120_IDTight
+keep HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60
+keep HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF
+keep HLT_IsoMu24
+keep HLT_Mu50
+keep HLT_CascadeMu100
+keep HLT_HighPtTkMu100
+
+#Drop all Flags
+drop Flag_*
+keep Flag_goodVertices
+keep Flag_globalSuperTightHalo2016Filter
+keep Flag_EcalDeadCellTriggerPrimitiveFilter
+keep Flag_BadPFMuonFilter
+keep Flag_BadPFMuonDzFilter
+keep Flag_hfNoisyHitsFilter
+keep Flag_eeBadScFilter
+keep Flag_ecalBadCalibFilter
