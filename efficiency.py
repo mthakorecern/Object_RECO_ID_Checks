@@ -19,6 +19,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         debug=False,
         higgs_pdgid=25,
         resonance_pdgid=35,
+        max_dr_ele=0.1,
+        max_dr_muon=0.1,
         max_dr_hps_tau=0.1,
         max_dr_boosted_tau=0.3,
         json_path=None,
@@ -29,7 +31,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
 
         self.higgs_pdgid = abs(higgs_pdgid)
         self.resonance_pdgid = abs(resonance_pdgid) if resonance_pdgid is not None else None
-
+        self.max_dr_ele = float(max_dr_ele)
+        self.max_dr_muon = float(max_dr_muon)
         self.max_dr_hps_tau = float(max_dr_hps_tau)
         self.max_dr_boosted_tau = float(max_dr_boosted_tau)
 
@@ -52,6 +55,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                 "higgs_pdgid": self.higgs_pdgid,
                 "resonance_pdgid": self.resonance_pdgid,
                 "matching": {
+                    "ele_deltaR_max": self.max_dr_ele,
+                    "muon_deltaR_max": self.max_dr_muon,
                     "hps_tau_deltaR_max": self.max_dr_hps_tau,
                     "boosted_tau_deltaR_max": self.max_dr_boosted_tau,
                 },
@@ -615,8 +620,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                 if is_ele_target:
                     raw["gen_particles_from_higgs_tau"]["electrons"] += 1
 
-                    reco_idx = self._find_matched_reco_electron(electrons, igen)
-
+                   
                     genElectron_pt.append(float(gp.pt))
                     genElectron_eta.append(float(gp.eta))
                     genElectron_phi.append(float(gp.phi))
@@ -628,8 +632,14 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     genElectron_higgsAncestorIdx.append(int(higgs_idx))
                     genElectron_resonanceAncestorIdx.append(int(resonance_idx))
 
-                    genElectron_matchedRecoElectronIdx.append(int(reco_idx))
-                    genElectron_hasMatchedRecoElectron.append(int(reco_idx >= 0))
+                    
+                    reco_idx, reco_ele_dr = self._find_nearest_reco_object(
+                        electrons,
+                        float(gp.eta),
+                        float(gp.phi),
+                        self.max_dr_ele,
+                        )
+
 
                     if reco_idx >= 0:
                         ele = electrons[reco_idx]
@@ -642,7 +652,9 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                             raw["gen_particles_with_matched_reco_passing_id"]["electrons_cutBasedMedium"] += 1
                         if cut_based >= 4:
                             raw["gen_particles_with_matched_reco_passing_id"]["electrons_cutBasedTight"] += 1
-
+    
+                        genElectron_matchedRecoElectronIdx.append(int(reco_idx))
+                        genElectron_hasMatchedRecoElectron.append(int(reco_idx >= 0))
                         genElectron_matchedRecoElectron_pt.append(float(getattr(ele, "pt", -999.0)))
                         genElectron_matchedRecoElectron_eta.append(float(getattr(ele, "eta", -999.0)))
                         genElectron_matchedRecoElectron_phi.append(float(getattr(ele, "phi", -999.0)))
@@ -671,7 +683,12 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                 if is_mu_target:
                     raw["gen_particles_from_higgs_tau"]["muons"] += 1
 
-                    reco_idx = self._find_matched_reco_muon(muons, igen)
+                    reco_idx, reco_muon_dr = self._find_nearest_reco_object(
+                        muons,
+                        float(gp.eta),
+                        float(gp.phi),
+                        self.max_dr_muon,
+                        )
 
                     genMuon_pt.append(float(gp.pt))
                     genMuon_eta.append(float(gp.eta))
@@ -959,6 +976,8 @@ def run_one_file(args):
                 debug=False,
                 higgs_pdgid=25,
                 resonance_pdgid=35,
+                max_dr_ele=0.1,
+                max_dr_muon=0.1,
                 max_dr_hps_tau=0.1,
                 max_dr_boosted_tau=0.3,
                 json_path=f"{base}_GenMatching.json",
@@ -977,7 +996,7 @@ def run_one_file(args):
     return input_file
 
 if __name__ == "__main__":
-    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/RECO_Tau_dz_added/"
+    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching"
 
     inputFiles = [
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-1000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
