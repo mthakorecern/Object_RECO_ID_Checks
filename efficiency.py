@@ -19,8 +19,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         debug=False,
         higgs_pdgid=25,
         resonance_pdgid=35,
-        max_dr_ele=0.1,
-        max_dr_muon=0.1,
+        max_dr_ele=0.3,
+        max_dr_muon=0.3,
         max_dr_hps_tau=0.1,
         max_dr_boosted_tau=0.3,
         json_path=None,
@@ -964,7 +964,7 @@ def run_one_file(args):
     input_file, output_dir = args
 
     base = os.path.splitext(os.path.basename(input_file))[0]
-    postfix = f"_{base}"
+    postfix = ""
 
     p = PostProcessor(
         output_dir,
@@ -976,8 +976,8 @@ def run_one_file(args):
                 debug=False,
                 higgs_pdgid=25,
                 resonance_pdgid=35,
-                max_dr_ele=0.1,
-                max_dr_muon=0.1,
+                max_dr_ele=0.3,
+                max_dr_muon=0.3,
                 max_dr_hps_tau=0.1,
                 max_dr_boosted_tau=0.3,
                 json_path=f"{base}_GenMatching.json",
@@ -986,7 +986,7 @@ def run_one_file(args):
         provenance=True,
         fwkJobReport=False,
         noOut=False,
-        postfix=postfix,
+        postfix="",
         haddFileName=None,
         outputbranchsel="Datadrop.txt",
         # maxEntries=2000,
@@ -996,7 +996,7 @@ def run_one_file(args):
     return input_file
 
 if __name__ == "__main__":
-    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching"
+    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching_0_3"
 
     inputFiles = [
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-1000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
