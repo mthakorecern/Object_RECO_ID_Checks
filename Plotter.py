@@ -166,13 +166,13 @@ def process_file(job):
         ele_wp_value,
         ele_skip_cuts,
         use_ele_cutbased,
-        hps_tau_wp_vsjet,
-        hps_tau_wp_vse,
-        hps_tau_wp_vsmu,
-        boosted_tau_raw_threshold,
-        allowed_tau_decay_modes,
-        allowed_boosted_tau_decay_modes,
-        require_tau_newdm_id,
+        # hps_tau_wp_vsjet,
+        # hps_tau_wp_vse,
+        # hps_tau_wp_vsmu,
+        # boosted_tau_raw_threshold,
+        # allowed_tau_decay_modes,
+        # allowed_boosted_tau_decay_modes,
+        # require_tau_newdm_id,
     ) = job
 
     import ROOT
@@ -205,19 +205,19 @@ def process_file(job):
     h_mu_reco = make_hist("h_mu_reco_" + label, bins)
     h_mu_recoid = make_hist("h_mu_recoid_" + label, bins)
 
-    # ------------------------------------------------------------------
-    # HPS Tau
-    # ------------------------------------------------------------------
-    h_tau_den = make_hist("h_tau_den_" + label, bins)
-    h_tau_reco = make_hist("h_tau_reco_" + label, bins)
-    h_tau_recoid = make_hist("h_tau_recoid_" + label, bins)
+    # # ------------------------------------------------------------------
+    # # HPS Tau
+    # # ------------------------------------------------------------------
+    # h_tau_den = make_hist("h_tau_den_" + label, bins)
+    # h_tau_reco = make_hist("h_tau_reco_" + label, bins)
+    # h_tau_recoid = make_hist("h_tau_recoid_" + label, bins)
 
-    # ------------------------------------------------------------------
-    # boostedTau
-    # ------------------------------------------------------------------
-    h_btau_den = make_hist("h_btau_den_" + label, bins)
-    h_btau_reco = make_hist("h_btau_reco_" + label, bins)
-    h_btau_recoid = make_hist("h_btau_recoid_" + label, bins)
+    # # ------------------------------------------------------------------
+    # # boostedTau
+    # # ------------------------------------------------------------------
+    # h_btau_den = make_hist("h_btau_den_" + label, bins)
+    # h_btau_reco = make_hist("h_btau_reco_" + label, bins)
+    # h_btau_recoid = make_hist("h_btau_recoid_" + label, bins)
 
     nentries = t.GetEntries()
 
@@ -314,158 +314,158 @@ def process_file(job):
             if loose_id == 1:
                 h_mu_recoid.Fill(gen_pt)
 
-        # ==============================================================
-        # HPS TAUS
-        # ==============================================================
-        for i in range(int(t.nGenVisTauFromHiggsTau)):
+        # # ==============================================================
+        # # HPS TAUS
+        # # ==============================================================
+        # for i in range(int(t.nGenVisTauFromHiggsTau)):
 
-            gen_pt = float(t.GenVisTauFromHiggsTau_pt[i])
-            gen_eta = float(t.GenVisTauFromHiggsTau_eta[i])
+        #     gen_pt = float(t.GenVisTauFromHiggsTau_pt[i])
+        #     gen_eta = float(t.GenVisTauFromHiggsTau_eta[i])
 
-            # GEN fiducial denominator
-            if gen_pt < 20:
-                continue
+        #     # GEN fiducial denominator
+        #     if gen_pt < 20:
+        #         continue
 
-            if abs(gen_eta) > 2.5:
-                continue
+        #     if abs(gen_eta) > 2.5:
+        #         continue
 
-            h_tau_den.Fill(gen_pt)
+        #     h_tau_den.Fill(gen_pt)
 
-            # Matched reco HPS tau
-            if int(t.GenVisTauFromHiggsTau_hasMatchedRecoTau[i]) != 1:
-                continue
+        #     # Matched reco HPS tau
+        #     if int(t.GenVisTauFromHiggsTau_hasMatchedRecoTau[i]) != 1:
+        #         continue
 
-            reco_pt = float(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_pt[i]
-            )
+        #     reco_pt = float(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_pt[i]
+        #     )
 
-            reco_eta = float(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_eta[i]
-            )
+        #     reco_eta = float(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_eta[i]
+        #     )
 
-            reco_dz = float(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_dz[i]
-            )
+        #     reco_dz = float(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_dz[i]
+        #     )
 
-            if abs(reco_dz) > 0.2 :
-                continue 
+        #     if abs(reco_dz) > 0.2 :
+        #         continue 
 
 
-            # Reco pT/eta acceptance
-            if not passes_tau_acceptance(reco_pt, reco_eta, 20, 2.5):
-                continue
+        #     # Reco pT/eta acceptance
+        #     if not passes_tau_acceptance(reco_pt, reco_eta, 20, 2.5):
+        #         continue
 
-            # Reco decay mode requirement
-            reco_decay_mode = int(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_decayMode[i]
-            )
+        #     # Reco decay mode requirement
+        #     reco_decay_mode = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_decayMode[i]
+        #     )
 
-            if not passes_tau_decay_mode(
-                reco_decay_mode,
-                allowed_tau_decay_modes,
-            ):
-                continue
+        #     if not passes_tau_decay_mode(
+        #         reco_decay_mode,
+        #         allowed_tau_decay_modes,
+        #     ):
+        #         continue
 
-            # Optional HPS Tau newDM decay-mode ID
-            if require_tau_newdm_id:
-                newdm_id = int(
-                    t.GenVisTauFromHiggsTau_matchedRecoTau_idDecayModeNewDMs[i]
-                )
+        #     # Optional HPS Tau newDM decay-mode ID
+        #     if require_tau_newdm_id:
+        #         newdm_id = int(
+        #             t.GenVisTauFromHiggsTau_matchedRecoTau_idDecayModeNewDMs[i]
+        #         )
 
-                if newdm_id != 1:
-                    continue
+        #         if newdm_id != 1:
+        #             continue
 
-            # Reconstruction numerator:
-            # matched reco tau + reco pT/eta + decay-mode requirement
-            h_tau_reco.Fill(gen_pt)
+        #     # Reconstruction numerator:
+        #     # matched reco tau + reco pT/eta + decay-mode requirement
+        #     h_tau_reco.Fill(gen_pt)
 
-            # Reco + ID numerator:
-            # same as reco numerator + DeepTau VSjet WP
-            hps_tau_vsjet_id = int(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet[i]
-            )
-            hps_tau_vse_id = int(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe[i]
-            )
-            hps_tau_vsmu_id = int(
-                t.GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu[i]
-            )
+        #     # Reco + ID numerator:
+        #     # same as reco numerator + DeepTau VSjet WP
+        #     hps_tau_vsjet_id = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet[i]
+        #     )
+        #     hps_tau_vse_id = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe[i]
+        #     )
+        #     hps_tau_vsmu_id = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu[i]
+        #     )
 
-            if hps_tau_wp_passes_vsjet(hps_tau_vsjet_id, hps_tau_wp_vsjet) and hps_tau_wp_passes_vse(hps_tau_vse_id, hps_tau_wp_vse) and hps_tau_wp_passes_vsmu(hps_tau_vsmu_id, hps_tau_wp_vsmu)  :
-                h_tau_recoid.Fill(gen_pt)
+        #     if hps_tau_wp_passes_vsjet(hps_tau_vsjet_id, hps_tau_wp_vsjet) and hps_tau_wp_passes_vse(hps_tau_vse_id, hps_tau_wp_vse) and hps_tau_wp_passes_vsmu(hps_tau_vsmu_id, hps_tau_wp_vsmu)  :
+        #         h_tau_recoid.Fill(gen_pt)
 
-        # ==============================================================
-        # BOOSTED TAUS
-        # ==============================================================
-        for i in range(int(t.nGenVisTauFromHiggsTau)):
+        # # ==============================================================
+        # # BOOSTED TAUS
+        # # ==============================================================
+        # for i in range(int(t.nGenVisTauFromHiggsTau)):
 
-            gen_pt = float(t.GenVisTauFromHiggsTau_pt[i])
-            gen_eta = float(t.GenVisTauFromHiggsTau_eta[i])
+        #     gen_pt = float(t.GenVisTauFromHiggsTau_pt[i])
+        #     gen_eta = float(t.GenVisTauFromHiggsTau_eta[i])
 
-            # GEN fiducial denominator
-            if gen_pt < 25:
-                continue
+        #     # GEN fiducial denominator
+        #     if gen_pt < 25:
+        #         continue
 
-            if abs(gen_eta) > 2.5:
-                continue
+        #     if abs(gen_eta) > 2.5:
+        #         continue
 
-            h_btau_den.Fill(gen_pt)
+        #     h_btau_den.Fill(gen_pt)
 
-            # Matched reco boostedTau
-            if int(
-                t.GenVisTauFromHiggsTau_hasMatchedRecoBoostedTau[i]
-            ) != 1:
-                continue
+        #     # Matched reco boostedTau
+        #     if int(
+        #         t.GenVisTauFromHiggsTau_hasMatchedRecoBoostedTau[i]
+        #     ) != 1:
+        #         continue
 
-            reco_pt = float(
-                t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_pt[i]
-            )
+        #     reco_pt = float(
+        #         t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_pt[i]
+        #     )
 
-            reco_eta = float(
-                t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_eta[i]
-            )
+        #     reco_eta = float(
+        #         t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_eta[i]
+        #     )
 
-            # Reco pT/eta acceptance
-            if not passes_tau_acceptance(reco_pt, reco_eta, 25, 2.5):
-                continue
+        #     # Reco pT/eta acceptance
+        #     if not passes_tau_acceptance(reco_pt, reco_eta, 25, 2.5):
+        #         continue
 
-            # Reco decay mode requirement
-            reco_decay_mode = int(
-                t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_decayMode[i]
-            )
+        #     # Reco decay mode requirement
+        #     reco_decay_mode = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_decayMode[i]
+        #     )
 
-            if not passes_tau_decay_mode(
-                reco_decay_mode,
-                allowed_boosted_tau_decay_modes,
-            ):
-                continue
+        #     if not passes_tau_decay_mode(
+        #         reco_decay_mode,
+        #         allowed_boosted_tau_decay_modes,
+        #     ):
+        #         continue
 
-            # Reconstruction numerator:
-            # matched boostedTau + reco pT/eta + decay-mode requirement
-            h_btau_reco.Fill(gen_pt)
+        #     # Reconstruction numerator:
+        #     # matched boostedTau + reco pT/eta + decay-mode requirement
+        #     h_btau_reco.Fill(gen_pt)
 
-            anti_ele = int(
-                t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiEle2018[i]
-            )
+        #     anti_ele = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiEle2018[i]
+        #     )
 
-            anti_mu = int(
-                t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu[i]
-            )
+        #     anti_mu = int(
+        #         t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu[i]
+        #     )
 
-            raw_boosted_deeptau = float(
-                t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet[i]
-            )
+        #     raw_boosted_deeptau = float(
+        #         t.GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet[i]
+        #     )
 
-            # pass_anti_ele = ((anti_ele & 2) == 2)
-            # pass_anti_mu = ((anti_mu & 1) == 1)
+        #     # pass_anti_ele = ((anti_ele & 2) == 2)
+        #     # pass_anti_mu = ((anti_mu & 1) == 1)
 
-            pass_raw_boosted_deeptau = boosted_tau_raw_passes(
-                raw_boosted_deeptau,
-                boosted_tau_raw_threshold,
-            )
+        #     pass_raw_boosted_deeptau = boosted_tau_raw_passes(
+        #         raw_boosted_deeptau,
+        #         boosted_tau_raw_threshold,
+        #     )
 
-            if pass_raw_boosted_deeptau:    #pass_anti_ele and pass_anti_mu and
-                h_btau_recoid.Fill(gen_pt)
+        #     if pass_raw_boosted_deeptau:    #pass_anti_ele and pass_anti_mu and
+        #         h_btau_recoid.Fill(gen_pt)
 
     # ------------------------------------------------------------------
     # Summary
@@ -485,17 +485,17 @@ def process_file(job):
             "recoid": int(h_mu_recoid.Integral()),
         },
 
-        "tau": {
-            "den": int(h_tau_den.Integral()),
-            "reco": int(h_tau_reco.Integral()),
-            "recoid": int(h_tau_recoid.Integral()),
-        },
+        # "tau": {
+        #     "den": int(h_tau_den.Integral()),
+        #     "reco": int(h_tau_reco.Integral()),
+        #     "recoid": int(h_tau_recoid.Integral()),
+        # },
 
-        "boostedTau": {
-            "den": int(h_btau_den.Integral()),
-            "reco": int(h_btau_reco.Integral()),
-            "recoid": int(h_btau_recoid.Integral()),
-        },
+        # "boostedTau": {
+        #     "den": int(h_btau_den.Integral()),
+        #     "reco": int(h_btau_reco.Integral()),
+        #     "recoid": int(h_btau_recoid.Integral()),
+        # },
     }
 
     # detach from file
@@ -506,12 +506,12 @@ def process_file(job):
         h_mu_den,
         h_mu_reco,
         h_mu_recoid,
-        h_tau_den,
-        h_tau_reco,
-        h_tau_recoid,
-        h_btau_den,
-        h_btau_reco,
-        h_btau_recoid,
+        # h_tau_den,
+        # h_tau_reco,
+        # h_tau_recoid,
+        # h_btau_den,
+        # h_btau_reco,
+        # h_btau_recoid,
     ]:
         h.SetDirectory(0)
 
@@ -529,13 +529,13 @@ def process_file(job):
         "h_mu_reco": h_mu_reco,
         "h_mu_recoid": h_mu_recoid,
 
-        "h_tau_den": h_tau_den,
-        "h_tau_reco": h_tau_reco,
-        "h_tau_recoid": h_tau_recoid,
+        # "h_tau_den": h_tau_den,
+        # "h_tau_reco": h_tau_reco,
+        # "h_tau_recoid": h_tau_recoid,
 
-        "h_btau_den": h_btau_den,
-        "h_btau_reco": h_btau_reco,
-        "h_btau_recoid": h_btau_recoid,
+        # "h_btau_den": h_btau_den,
+        # "h_btau_reco": h_btau_reco,
+        # "h_btau_recoid": h_btau_recoid,
     }
 
 
@@ -562,11 +562,11 @@ def draw_graphs(results, outdir):
         ("muon", "Reco", "h_mu_reco", "h_mu_den"),
         ("muon", "Reco+ID", "h_mu_recoid", "h_mu_den"),
 
-        ("tau", "Reco", "h_tau_reco", "h_tau_den"),
-        ("tau", "Reco+ID", "h_tau_recoid", "h_tau_den"),
+        # ("tau", "Reco", "h_tau_reco", "h_tau_den"),
+        # ("tau", "Reco+ID", "h_tau_recoid", "h_tau_den"),
 
-        ("boostedTau", "Reco", "h_btau_reco", "h_btau_den"),
-        ("boostedTau", "Reco+ID", "h_btau_recoid", "h_btau_den"),
+        # ("boostedTau", "Reco", "h_btau_reco", "h_btau_den"),
+        # ("boostedTau", "Reco+ID", "h_btau_recoid", "h_btau_den"),
     ]
 
     # Important: keep references alive until the function exits.
@@ -712,38 +712,38 @@ def main():
         "--ele-skip-cuts",
         default="",
     )
-    parser.add_argument(
-    "--tau-decay-modes",
-    default="0,1,10,11",
-    help=(
-        "Allowed HPS Tau decay modes. "
-        "Use empty string '' to disable the decay-mode cut."
-    ),
-    )
+    # parser.add_argument(
+    # "--tau-decay-modes",
+    # default="0,1,10,11",
+    # help=(
+    #     "Allowed HPS Tau decay modes. "
+    #     "Use empty string '' to disable the decay-mode cut."
+    # ),
+    # )
 
-    parser.add_argument(
-        "--boosted-tau-decay-modes",
-        default="0,1,10,11",
-        help=(
-            "Allowed boostedTau decay modes. "
-            "Use empty string '' to disable the decay-mode cut."
-        ),
-    )
+    # parser.add_argument(
+    #     "--boosted-tau-decay-modes",
+    #     default="0,1,10,11",
+    #     help=(
+    #         "Allowed boostedTau decay modes. "
+    #         "Use empty string '' to disable the decay-mode cut."
+    #     ),
+    # )
 
-    parser.add_argument(
-        "--require-tau-newdm-id",
-        action="store_true",
-        help="Require matched HPS Tau_idDecayModeNewDMs == 1.",
-    )
-    parser.add_argument(
-        "--boosted-tau-raw-threshold",
-        type=float,
-        default=0.85,
-        help=(
-            "Raw boostedTau DeepTau threshold. "
-            "Pass condition is rawBoostedDeepTauRunIIv2p0VSjet >= threshold."
-        ),
-    )
+    # parser.add_argument(
+    #     "--require-tau-newdm-id",
+    #     action="store_true",
+    #     help="Require matched HPS Tau_idDecayModeNewDMs == 1.",
+    # )
+    # parser.add_argument(
+    #     "--boosted-tau-raw-threshold",
+    #     type=float,
+    #     default=0.85,
+    #     help=(
+    #         "Raw boostedTau DeepTau threshold. "
+    #         "Pass condition is rawBoostedDeepTauRunIIv2p0VSjet >= threshold."
+    #     ),
+    # )
 
     parser.add_argument(
         "--nproc",
@@ -764,17 +764,17 @@ def main():
             int(x)
             for x in args.ele_skip_cuts.split(",")
         )
-    allowed_tau_decay_modes = parse_allowed_decay_modes(args.tau_decay_modes)
+    # allowed_tau_decay_modes = parse_allowed_decay_modes(args.tau_decay_modes)
 
-    allowed_boosted_tau_decay_modes = parse_allowed_decay_modes(args.boosted_tau_decay_modes)
+    # allowed_boosted_tau_decay_modes = parse_allowed_decay_modes(args.boosted_tau_decay_modes)
 
     ele_wp_value = 2
 
     # DeepTau working points
-    hps_tau_wp_vsjet = 4
-    hps_tau_wp_vse = 2
-    hps_tau_wp_vsmu = 1
-    boosted_tau_raw_threshold = args.boosted_tau_raw_threshold
+    # hps_tau_wp_vsjet = 4
+    # hps_tau_wp_vse = 2
+    # hps_tau_wp_vsmu = 1
+    # boosted_tau_raw_threshold = args.boosted_tau_raw_threshold
 
     jobs = []
 
@@ -786,13 +786,13 @@ def main():
             ele_wp_value,
             ele_skip_cuts,
             args.use_ele_cutbased,
-            hps_tau_wp_vsjet,
-            hps_tau_wp_vse,
-            hps_tau_wp_vsmu,
-            boosted_tau_raw_threshold,
-            allowed_tau_decay_modes,
-            allowed_boosted_tau_decay_modes,
-            args.require_tau_newdm_id,
+            # hps_tau_wp_vsjet,
+            # hps_tau_wp_vse,
+            # hps_tau_wp_vsmu,
+            # boosted_tau_raw_threshold,
+            # allowed_tau_decay_modes,
+            # allowed_boosted_tau_decay_modes,
+            # args.require_tau_newdm_id,
         ))
 
     ctx = mp.get_context("spawn")

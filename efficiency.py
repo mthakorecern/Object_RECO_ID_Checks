@@ -21,8 +21,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         resonance_pdgid=35,
         max_dr_ele=0.3,
         max_dr_muon=0.3,
-        max_dr_hps_tau=0.1,
-        max_dr_boosted_tau=0.3,
+        # max_dr_hps_tau=0.1,
+        # max_dr_boosted_tau=0.3,
         json_path=None,
     ):
         self.isData = isData
@@ -33,8 +33,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.resonance_pdgid = abs(resonance_pdgid) if resonance_pdgid is not None else None
         self.max_dr_ele = float(max_dr_ele)
         self.max_dr_muon = float(max_dr_muon)
-        self.max_dr_hps_tau = float(max_dr_hps_tau)
-        self.max_dr_boosted_tau = float(max_dr_boosted_tau)
+        # self.max_dr_hps_tau = float(max_dr_hps_tau)
+        # self.max_dr_boosted_tau = float(max_dr_boosted_tau)
 
         self.json_path = json_path
 
@@ -56,9 +56,9 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                 "resonance_pdgid": self.resonance_pdgid,
                 "matching": {
                     "ele_deltaR_max": self.max_dr_ele,
-                    "muon_deltaR_max": self.max_dr_muon,
-                    "hps_tau_deltaR_max": self.max_dr_hps_tau,
-                    "boosted_tau_deltaR_max": self.max_dr_boosted_tau,
+                    "muon_deltaR_max": self.max_dr_muon
+                    # "hps_tau_deltaR_max": self.max_dr_hps_tau,
+                    # "boosted_tau_deltaR_max": self.max_dr_boosted_tau,
                 },
                 "files": self.file_summaries,
             }
@@ -76,14 +76,14 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                 "gen_particles_from_higgs_tau": {
                     "electrons": 0,
                     "muons": 0,
-                    "visible_hadronic_taus": 0,
+                    # "visible_hadronic_taus": 0,
                 },
 
                 "gen_particles_with_matched_reco": {
                     "electrons_to_reco_electrons": 0,
                     "muons_to_reco_muons": 0,
-                    "visible_taus_to_hps_taus": 0,
-                    "visible_taus_to_boosted_taus": 0,
+                    # "visible_taus_to_hps_taus": 0,
+                    # "visible_taus_to_boosted_taus": 0,
                 },
 
                 "gen_particles_with_matched_reco_passing_id": {
@@ -95,7 +95,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     "muons_mediumId": 0,
                     "muons_tightId": 0,
 
-                    "boosted_taus_antiEle_antiMu": 0,
+                    # "boosted_taus_antiEle_antiMu": 0,
                 }
             },
         }
@@ -134,7 +134,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pt", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_eta", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_phi", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", "F", lenVar="nGenElectronFromHiggsTau")
+        # self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", "I", lenVar="nGenElectronFromHiggsTau")
@@ -162,47 +162,47 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_tightId", "I", lenVar="nGenMuonFromHiggsTau")
         self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_genPartFlav", "I", lenVar="nGenMuonFromHiggsTau")
 
-        ## GEN vis Taus kinematic variables
-        self.out.branch("nGenVisTauFromHiggsTau", "I")
-        self.out.branch("GenVisTauFromHiggsTau_pt", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_eta", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_status", "I", lenVar="nGenVisTauFromHiggsTau")
+        # ## GEN vis Taus kinematic variables
+        # self.out.branch("nGenVisTauFromHiggsTau", "I")
+        # self.out.branch("GenVisTauFromHiggsTau_pt", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_eta", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_status", "I", lenVar="nGenVisTauFromHiggsTau")
 
-        self.out.branch("GenVisTauFromHiggsTau_genVisTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_genVisTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
 
-        # Matched HPS Tau kinematic variables
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_hasMatchedRecoTau", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_deltaR", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_pt", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_eta", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_dz", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_decayMode", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDecayModeNewDMs", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu", "I", lenVar="nGenVisTauFromHiggsTau")
+        # # Matched HPS Tau kinematic variables
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_hasMatchedRecoTau", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_deltaR", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_pt", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_eta", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_dz", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_decayMode", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDecayModeNewDMs", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu", "I", lenVar="nGenVisTauFromHiggsTau")
 
-        # Matched boosted Tau kinematic variables
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_hasMatchedRecoBoostedTau", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_deltaR", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_pt", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_eta", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_decayMode", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiEle2018", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", "I", lenVar="nGenVisTauFromHiggsTau")
-        self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", "F", lenVar="nGenVisTauFromHiggsTau")
+        # # Matched boosted Tau kinematic variables
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_hasMatchedRecoBoostedTau", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_deltaR", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_pt", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_eta", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_decayMode", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiEle2018", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", "I", lenVar="nGenVisTauFromHiggsTau")
+        # self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", "F", lenVar="nGenVisTauFromHiggsTau")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         if self.current_file is not None and self.current_summary is not None:
@@ -436,11 +436,11 @@ class TruthMatchLeptonEfficiencyProducer(Module):
     def analyze(self, event):
         electrons = Collection(event, "Electron")
         muons = Collection(event, "Muon")
-        taus = Collection(event, "Tau")
-        boosted_taus = Collection(event, "boostedTau")
+        # taus = Collection(event, "Tau")
+        # boosted_taus = Collection(event, "boostedTau")
 
         genparts = Collection(event, "GenPart") if self.isMC else []
-        genvistau = Collection(event, "GenVisTau") if self.isMC else []
+        # genvistau = Collection(event, "GenVisTau") if self.isMC else []
 
         raw = self.current_summary["raw_counts_no_fiducial_cuts"]
         self.current_summary["events_processed"] += 1
@@ -538,7 +538,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genElectron_matchedRecoElectron_pt = []
         genElectron_matchedRecoElectron_eta = []
         genElectron_matchedRecoElectron_phi = []
-        genElectron_matchedRecoElectron_superclusterEta = []
+        # genElectron_matchedRecoElectron_superclusterEta = []
         genElectron_matchedRecoElectron_vidNestedWPBitmap = []
         genElectron_matchedRecoElectron_cutBased = []
         genElectron_matchedRecoElectron_genPartFlav = []
@@ -566,44 +566,44 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genMuon_matchedRecoMuon_genPartFlav = []
 
 
-        # GEN visible tau containers
-        genVisTau_pt = []
-        genVisTau_eta = []
-        genVisTau_phi = []
-        genVisTau_mass = []
-        genVisTau_status = []
-        genVisTau_genVisTauIdx = []
-        genVisTau_tauAncestorIdx = []
-        genVisTau_higgsAncestorIdx = []
-        genVisTau_resonanceAncestorIdx = []
+        # # GEN visible tau containers
+        # genVisTau_pt = []
+        # genVisTau_eta = []
+        # genVisTau_phi = []
+        # genVisTau_mass = []
+        # genVisTau_status = []
+        # genVisTau_genVisTauIdx = []
+        # genVisTau_tauAncestorIdx = []
+        # genVisTau_higgsAncestorIdx = []
+        # genVisTau_resonanceAncestorIdx = []
 
-        genVisTau_matchedRecoTauIdx = []
-        genVisTau_hasMatchedRecoTau = []
-        genVisTau_matchedRecoTau_deltaR = []
-        genVisTau_matchedRecoTau_pt = []
-        genVisTau_matchedRecoTau_dz = []
+        # genVisTau_matchedRecoTauIdx = []
+        # genVisTau_hasMatchedRecoTau = []
+        # genVisTau_matchedRecoTau_deltaR = []
+        # genVisTau_matchedRecoTau_pt = []
+        # genVisTau_matchedRecoTau_dz = []
 
-        genVisTau_matchedRecoTau_eta = []
-        genVisTau_matchedRecoTau_phi = []
-        genVisTau_matchedRecoTau_mass = []
-        genVisTau_matchedRecoTau_decayMode = []
-        genVisTau_matchedRecoTau_idDecayModeNewDMs = []
-        genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet = []
-        genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe = []
-        genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu = []
+        # genVisTau_matchedRecoTau_eta = []
+        # genVisTau_matchedRecoTau_phi = []
+        # genVisTau_matchedRecoTau_mass = []
+        # genVisTau_matchedRecoTau_decayMode = []
+        # genVisTau_matchedRecoTau_idDecayModeNewDMs = []
+        # genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet = []
+        # genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe = []
+        # genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu = []
 
-        genVisTau_matchedRecoBoostedTauIdx = []
-        genVisTau_hasMatchedRecoBoostedTau = []
-        genVisTau_matchedRecoBoostedTau_deltaR = []
-        genVisTau_matchedRecoBoostedTau_pt = []
-        genVisTau_matchedRecoBoostedTau_eta = []
-        genVisTau_matchedRecoBoostedTau_phi = []
-        genVisTau_matchedRecoBoostedTau_mass = []
-        genVisTau_matchedRecoBoostedTau_decayMode = []
-        genVisTau_matchedRecoBoostedTau_idAntiEle2018 = []
-        genVisTau_matchedRecoBoostedTau_idAntiMu = []
-        genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2 = []
-        genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet = []
+        # genVisTau_matchedRecoBoostedTauIdx = []
+        # genVisTau_hasMatchedRecoBoostedTau = []
+        # genVisTau_matchedRecoBoostedTau_deltaR = []
+        # genVisTau_matchedRecoBoostedTau_pt = []
+        # genVisTau_matchedRecoBoostedTau_eta = []
+        # genVisTau_matchedRecoBoostedTau_phi = []
+        # genVisTau_matchedRecoBoostedTau_mass = []
+        # genVisTau_matchedRecoBoostedTau_decayMode = []
+        # genVisTau_matchedRecoBoostedTau_idAntiEle2018 = []
+        # genVisTau_matchedRecoBoostedTau_idAntiMu = []
+        # genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2 = []
+        # genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet = []
 
         if self.isMC:
             for igen, gp in enumerate(genparts):
@@ -658,7 +658,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_pt.append(float(getattr(ele, "pt", -999.0)))
                         genElectron_matchedRecoElectron_eta.append(float(getattr(ele, "eta", -999.0)))
                         genElectron_matchedRecoElectron_phi.append(float(getattr(ele, "phi", -999.0)))
-                        genElectron_matchedRecoElectron_superclusterEta.append(float(getattr(ele, "superclusterEta", -999.0)))
+                        # genElectron_matchedRecoElectron_superclusterEta.append(float(getattr(ele, "superclusterEta", -999.0)))
                         genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(getattr(ele, "vidNestedWPBitmap", 0)))
                         genElectron_matchedRecoElectron_cutBased.append(cut_based)
                         genElectron_matchedRecoElectron_genPartFlav.append(int(getattr(ele, "genPartFlav", 0)))
@@ -666,7 +666,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_pt.append(float(-999.0))
                         genElectron_matchedRecoElectron_eta.append(float(-999.0))
                         genElectron_matchedRecoElectron_phi.append(float(-999.0))
-                        genElectron_matchedRecoElectron_superclusterEta.append(float(-999.0))
+                        # genElectron_matchedRecoElectron_superclusterEta.append(float(-999.0))
                         genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(0))
                         genElectron_matchedRecoElectron_cutBased.append(int(0))
                         genElectron_matchedRecoElectron_genPartFlav.append(int(0))
@@ -736,129 +736,129 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genMuon_matchedRecoMuon_genPartFlav.append(int(0))
 
 
-            # GenVisTau from Higgs -> tau, then DeltaR match to Tau/boostedTau
-            for ivis, vis in enumerate(genvistau):
+            # # GenVisTau from Higgs -> tau, then DeltaR match to Tau/boostedTau
+            # for ivis, vis in enumerate(genvistau):
 
-                tau_idx = int(getattr(vis, "genPartIdxMother", -1))
+            #     tau_idx = int(getattr(vis, "genPartIdxMother", -1))
 
-                if not self._valid_index(tau_idx, genparts):
-                    continue
+            #     if not self._valid_index(tau_idx, genparts):
+            #         continue
 
-                if abs(int(genparts[tau_idx].pdgId)) != 15:
-                    continue
+            #     if abs(int(genparts[tau_idx].pdgId)) != 15:
+            #         continue
 
-                higgs_idx, resonance_idx = self._find_higgs_resonance_from_tau(
-                    genparts,
-                    tau_idx,
-                )
+            #     higgs_idx, resonance_idx = self._find_higgs_resonance_from_tau(
+            #         genparts,
+            #         tau_idx,
+            #     )
 
-                if higgs_idx < 0:
-                    continue
+            #     if higgs_idx < 0:
+            #         continue
 
-                raw["gen_particles_from_higgs_tau"]["visible_hadronic_taus"] += 1
+            #     raw["gen_particles_from_higgs_tau"]["visible_hadronic_taus"] += 1
 
-                # HPS tau match
-                reco_tau_idx, reco_tau_dr = self._find_nearest_reco_object(
-                    taus,
-                    float(vis.eta),
-                    float(vis.phi),
-                    self.max_dr_hps_tau,
-                )
+            #     # HPS tau match
+            #     reco_tau_idx, reco_tau_dr = self._find_nearest_reco_object(
+            #         taus,
+            #         float(vis.eta),
+            #         float(vis.phi),
+            #         self.max_dr_hps_tau,
+            #     )
 
-                has_reco_tau = int(reco_tau_idx >= 0)
-                if has_reco_tau:
-                    raw["gen_particles_with_matched_reco"]["visible_taus_to_hps_taus"] += 1
-                    reco_tau = taus[reco_tau_idx]
-                else:
-                    reco_tau = None
+            #     has_reco_tau = int(reco_tau_idx >= 0)
+            #     if has_reco_tau:
+            #         raw["gen_particles_with_matched_reco"]["visible_taus_to_hps_taus"] += 1
+            #         reco_tau = taus[reco_tau_idx]
+            #     else:
+            #         reco_tau = None
 
-                # boostedTau match
-                reco_btau_idx, reco_btau_dr = self._find_nearest_reco_object(
-                    boosted_taus,
-                    float(vis.eta),
-                    float(vis.phi),
-                    self.max_dr_boosted_tau,
-                )
+            #     # boostedTau match
+            #     reco_btau_idx, reco_btau_dr = self._find_nearest_reco_object(
+            #         boosted_taus,
+            #         float(vis.eta),
+            #         float(vis.phi),
+            #         self.max_dr_boosted_tau,
+            #     )
 
-                has_reco_btau = int(reco_btau_idx >= 0)
-                if has_reco_btau:
-                    raw["gen_particles_with_matched_reco"]["visible_taus_to_boosted_taus"] += 1
-                    reco_btau = boosted_taus[reco_btau_idx]
-                else:
-                    reco_btau = None
+            #     has_reco_btau = int(reco_btau_idx >= 0)
+            #     if has_reco_btau:
+            #         raw["gen_particles_with_matched_reco"]["visible_taus_to_boosted_taus"] += 1
+            #         reco_btau = boosted_taus[reco_btau_idx]
+            #     else:
+            #         reco_btau = None
 
-                # Fill GenVisTau info
-                genVisTau_pt.append(float(vis.pt))
-                genVisTau_eta.append(float(vis.eta))
-                genVisTau_phi.append(float(vis.phi))
-                genVisTau_mass.append(float(vis.mass))
-                genVisTau_status.append(int(getattr(vis, "status", -1)))
+            #     # Fill GenVisTau info
+            #     genVisTau_pt.append(float(vis.pt))
+            #     genVisTau_eta.append(float(vis.eta))
+            #     genVisTau_phi.append(float(vis.phi))
+            #     genVisTau_mass.append(float(vis.mass))
+            #     genVisTau_status.append(int(getattr(vis, "status", -1)))
 
-                genVisTau_genVisTauIdx.append(int(ivis))
-                genVisTau_tauAncestorIdx.append(int(tau_idx))
-                genVisTau_higgsAncestorIdx.append(int(higgs_idx))
-                genVisTau_resonanceAncestorIdx.append(int(resonance_idx))
+            #     genVisTau_genVisTauIdx.append(int(ivis))
+            #     genVisTau_tauAncestorIdx.append(int(tau_idx))
+            #     genVisTau_higgsAncestorIdx.append(int(higgs_idx))
+            #     genVisTau_resonanceAncestorIdx.append(int(resonance_idx))
 
-                # Fill matched HPS Tau info
-                genVisTau_matchedRecoTauIdx.append(int(reco_tau_idx))
-                genVisTau_hasMatchedRecoTau.append(has_reco_tau)
-                genVisTau_matchedRecoTau_deltaR.append(float(reco_tau_dr))
+            #     # Fill matched HPS Tau info
+            #     genVisTau_matchedRecoTauIdx.append(int(reco_tau_idx))
+            #     genVisTau_hasMatchedRecoTau.append(has_reco_tau)
+            #     genVisTau_matchedRecoTau_deltaR.append(float(reco_tau_dr))
 
-                if reco_tau is not None:
-                    genVisTau_matchedRecoTau_pt.append(float(getattr(reco_tau, "pt", -999.0)))
-                    genVisTau_matchedRecoTau_eta.append(float(getattr(reco_tau, "eta", -999.0)))
-                    genVisTau_matchedRecoTau_phi.append(float(getattr(reco_tau, "phi", -999.0)))
-                    genVisTau_matchedRecoTau_dz.append(float(getattr(reco_tau, "dz", -999.0)))
+            #     if reco_tau is not None:
+            #         genVisTau_matchedRecoTau_pt.append(float(getattr(reco_tau, "pt", -999.0)))
+            #         genVisTau_matchedRecoTau_eta.append(float(getattr(reco_tau, "eta", -999.0)))
+            #         genVisTau_matchedRecoTau_phi.append(float(getattr(reco_tau, "phi", -999.0)))
+            #         genVisTau_matchedRecoTau_dz.append(float(getattr(reco_tau, "dz", -999.0)))
 
-                    genVisTau_matchedRecoTau_mass.append(float(getattr(reco_tau, "mass", -999.0)))
-                    genVisTau_matchedRecoTau_decayMode.append(int(getattr(reco_tau, "decayMode", -1)))
-                    genVisTau_matchedRecoTau_idDecayModeNewDMs.append(int(getattr(reco_tau, "idDecayModeNewDMs", 0)))
-                    genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet.append(self._get_hps_tau_deeptau_vsjet(reco_tau))
-                    genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe.append(self._get_hps_tau_deeptau_vse(reco_tau))
-                    genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu.append(self._get_hps_tau_deeptau_vsmu(reco_tau))
-                else:
-                    genVisTau_matchedRecoTau_pt.append(float(-999.0))
-                    genVisTau_matchedRecoTau_eta.append(float(-999.0))
-                    genVisTau_matchedRecoTau_phi.append(float(-999.0))
-                    genVisTau_matchedRecoTau_dz.append(float(-999.0))
-                    genVisTau_matchedRecoTau_mass.append(float(-999.0))
-                    genVisTau_matchedRecoTau_decayMode.append(int(-1))
-                    genVisTau_matchedRecoTau_idDecayModeNewDMs.append(int(0))
-                    genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet.append(int(0))
-                    genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe.append(int(0))
-                    genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu.append(int(0))
+            #         genVisTau_matchedRecoTau_mass.append(float(getattr(reco_tau, "mass", -999.0)))
+            #         genVisTau_matchedRecoTau_decayMode.append(int(getattr(reco_tau, "decayMode", -1)))
+            #         genVisTau_matchedRecoTau_idDecayModeNewDMs.append(int(getattr(reco_tau, "idDecayModeNewDMs", 0)))
+            #         genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet.append(self._get_hps_tau_deeptau_vsjet(reco_tau))
+            #         genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe.append(self._get_hps_tau_deeptau_vse(reco_tau))
+            #         genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu.append(self._get_hps_tau_deeptau_vsmu(reco_tau))
+            #     else:
+            #         genVisTau_matchedRecoTau_pt.append(float(-999.0))
+            #         genVisTau_matchedRecoTau_eta.append(float(-999.0))
+            #         genVisTau_matchedRecoTau_phi.append(float(-999.0))
+            #         genVisTau_matchedRecoTau_dz.append(float(-999.0))
+            #         genVisTau_matchedRecoTau_mass.append(float(-999.0))
+            #         genVisTau_matchedRecoTau_decayMode.append(int(-1))
+            #         genVisTau_matchedRecoTau_idDecayModeNewDMs.append(int(0))
+            #         genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet.append(int(0))
+            #         genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe.append(int(0))
+            #         genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu.append(int(0))
 
-                # Fill matched boostedTau info
-                genVisTau_matchedRecoBoostedTauIdx.append(int(reco_btau_idx))
-                genVisTau_hasMatchedRecoBoostedTau.append(has_reco_btau)
-                genVisTau_matchedRecoBoostedTau_deltaR.append(float(reco_btau_dr))
+            #     # Fill matched boostedTau info
+            #     genVisTau_matchedRecoBoostedTauIdx.append(int(reco_btau_idx))
+            #     genVisTau_hasMatchedRecoBoostedTau.append(has_reco_btau)
+            #     genVisTau_matchedRecoBoostedTau_deltaR.append(float(reco_btau_dr))
 
-                if reco_btau is not None:
-                    anti_ele = int(getattr(reco_btau, "idAntiEle2018", 0))
-                    anti_mu = int(getattr(reco_btau, "idAntiMu", 0))
+            #     if reco_btau is not None:
+            #         anti_ele = int(getattr(reco_btau, "idAntiEle2018", 0))
+            #         anti_mu = int(getattr(reco_btau, "idAntiMu", 0))
 
-                    if ((anti_ele & 2) == 2) and ((anti_mu & 1) == 1):
-                        raw["gen_particles_with_matched_reco_passing_id"]["boosted_taus_antiEle_antiMu"] += 1
+            #         if ((anti_ele & 2) == 2) and ((anti_mu & 1) == 1):
+            #             raw["gen_particles_with_matched_reco_passing_id"]["boosted_taus_antiEle_antiMu"] += 1
 
-                    genVisTau_matchedRecoBoostedTau_pt.append(float(getattr(reco_btau, "pt", -999.0)))
-                    genVisTau_matchedRecoBoostedTau_eta.append(float(getattr(reco_btau, "eta", -999.0)))
-                    genVisTau_matchedRecoBoostedTau_phi.append(float(getattr(reco_btau, "phi", -999.0)))
-                    genVisTau_matchedRecoBoostedTau_mass.append(float(getattr(reco_btau, "mass", -999.0)))
-                    genVisTau_matchedRecoBoostedTau_decayMode.append(int(getattr(reco_btau, "decayMode", -1)))
-                    genVisTau_matchedRecoBoostedTau_idAntiEle2018.append(anti_ele)
-                    genVisTau_matchedRecoBoostedTau_idAntiMu.append(anti_mu)
-                    genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2.append(int(getattr(reco_btau, "idMVAnewDM2017v2", 0)))
-                    genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(self._get_boosted_tau_deeptau_vsjet(reco_btau))
-                else:
-                    genVisTau_matchedRecoBoostedTau_pt.append(float(-999.0))
-                    genVisTau_matchedRecoBoostedTau_eta.append(float(-999.0))
-                    genVisTau_matchedRecoBoostedTau_phi.append(float(-999.0))
-                    genVisTau_matchedRecoBoostedTau_mass.append(float(-999.0))
-                    genVisTau_matchedRecoBoostedTau_decayMode.append(int(-1))
-                    genVisTau_matchedRecoBoostedTau_idAntiEle2018.append(int(0))
-                    genVisTau_matchedRecoBoostedTau_idAntiMu.append(int(0))
-                    genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2.append(int(0))
-                    genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(float(-999.0))
+            #         genVisTau_matchedRecoBoostedTau_pt.append(float(getattr(reco_btau, "pt", -999.0)))
+            #         genVisTau_matchedRecoBoostedTau_eta.append(float(getattr(reco_btau, "eta", -999.0)))
+            #         genVisTau_matchedRecoBoostedTau_phi.append(float(getattr(reco_btau, "phi", -999.0)))
+            #         genVisTau_matchedRecoBoostedTau_mass.append(float(getattr(reco_btau, "mass", -999.0)))
+            #         genVisTau_matchedRecoBoostedTau_decayMode.append(int(getattr(reco_btau, "decayMode", -1)))
+            #         genVisTau_matchedRecoBoostedTau_idAntiEle2018.append(anti_ele)
+            #         genVisTau_matchedRecoBoostedTau_idAntiMu.append(anti_mu)
+            #         genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2.append(int(getattr(reco_btau, "idMVAnewDM2017v2", 0)))
+            #         genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(self._get_boosted_tau_deeptau_vsjet(reco_btau))
+            #     else:
+            #         genVisTau_matchedRecoBoostedTau_pt.append(float(-999.0))
+            #         genVisTau_matchedRecoBoostedTau_eta.append(float(-999.0))
+            #         genVisTau_matchedRecoBoostedTau_phi.append(float(-999.0))
+            #         genVisTau_matchedRecoBoostedTau_mass.append(float(-999.0))
+            #         genVisTau_matchedRecoBoostedTau_decayMode.append(int(-1))
+            #         genVisTau_matchedRecoBoostedTau_idAntiEle2018.append(int(0))
+            #         genVisTau_matchedRecoBoostedTau_idAntiMu.append(int(0))
+            #         genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2.append(int(0))
+            #         genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(float(-999.0))
 
         
         # self.out.fillBranch("Electron_truthMatchedToGen", electron_truthMatchedToGen)
@@ -891,7 +891,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pt", genElectron_matchedRecoElectron_pt)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_eta", genElectron_matchedRecoElectron_eta)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_phi", genElectron_matchedRecoElectron_phi)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", genElectron_matchedRecoElectron_superclusterEta)
+        # self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", genElectron_matchedRecoElectron_superclusterEta)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", genElectron_matchedRecoElectron_vidNestedWPBitmap)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", genElectron_matchedRecoElectron_cutBased)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", genElectron_matchedRecoElectron_genPartFlav)
@@ -919,43 +919,43 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_genPartFlav", genMuon_matchedRecoMuon_genPartFlav)
 
 
-        self.out.fillBranch("nGenVisTauFromHiggsTau", len(genVisTau_pt))
-        self.out.fillBranch("GenVisTauFromHiggsTau_pt", genVisTau_pt)
-        self.out.fillBranch("GenVisTauFromHiggsTau_eta", genVisTau_eta)
-        self.out.fillBranch("GenVisTauFromHiggsTau_phi", genVisTau_phi)
-        self.out.fillBranch("GenVisTauFromHiggsTau_mass", genVisTau_mass)
-        self.out.fillBranch("GenVisTauFromHiggsTau_status", genVisTau_status)
-        self.out.fillBranch("GenVisTauFromHiggsTau_genVisTauIdx", genVisTau_genVisTauIdx)
-        self.out.fillBranch("GenVisTauFromHiggsTau_tauAncestorIdx", genVisTau_tauAncestorIdx)
-        self.out.fillBranch("GenVisTauFromHiggsTau_higgsAncestorIdx", genVisTau_higgsAncestorIdx)
-        self.out.fillBranch("GenVisTauFromHiggsTau_resonanceAncestorIdx", genVisTau_resonanceAncestorIdx)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTauIdx", genVisTau_matchedRecoTauIdx)
-        self.out.fillBranch("GenVisTauFromHiggsTau_hasMatchedRecoTau", genVisTau_hasMatchedRecoTau)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_deltaR", genVisTau_matchedRecoTau_deltaR)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_pt", genVisTau_matchedRecoTau_pt)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_eta", genVisTau_matchedRecoTau_eta)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_phi", genVisTau_matchedRecoTau_phi)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_dz", genVisTau_matchedRecoTau_dz)
+        # self.out.fillBranch("nGenVisTauFromHiggsTau", len(genVisTau_pt))
+        # self.out.fillBranch("GenVisTauFromHiggsTau_pt", genVisTau_pt)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_eta", genVisTau_eta)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_phi", genVisTau_phi)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_mass", genVisTau_mass)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_status", genVisTau_status)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_genVisTauIdx", genVisTau_genVisTauIdx)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_tauAncestorIdx", genVisTau_tauAncestorIdx)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_higgsAncestorIdx", genVisTau_higgsAncestorIdx)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_resonanceAncestorIdx", genVisTau_resonanceAncestorIdx)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTauIdx", genVisTau_matchedRecoTauIdx)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_hasMatchedRecoTau", genVisTau_hasMatchedRecoTau)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_deltaR", genVisTau_matchedRecoTau_deltaR)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_pt", genVisTau_matchedRecoTau_pt)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_eta", genVisTau_matchedRecoTau_eta)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_phi", genVisTau_matchedRecoTau_phi)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_dz", genVisTau_matchedRecoTau_dz)
 
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_mass", genVisTau_matchedRecoTau_mass)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_decayMode", genVisTau_matchedRecoTau_decayMode)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDecayModeNewDMs", genVisTau_matchedRecoTau_idDecayModeNewDMs)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet", genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe", genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu", genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_mass", genVisTau_matchedRecoTau_mass)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_decayMode", genVisTau_matchedRecoTau_decayMode)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDecayModeNewDMs", genVisTau_matchedRecoTau_idDecayModeNewDMs)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet", genVisTau_matchedRecoTau_idDeepTau2018v2p5VSjet)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe", genVisTau_matchedRecoTau_idDeepTau2018v2p5VSe)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu", genVisTau_matchedRecoTau_idDeepTau2018v2p5VSmu)
 
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTauIdx", genVisTau_matchedRecoBoostedTauIdx)
-        self.out.fillBranch("GenVisTauFromHiggsTau_hasMatchedRecoBoostedTau", genVisTau_hasMatchedRecoBoostedTau)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_deltaR", genVisTau_matchedRecoBoostedTau_deltaR)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_pt", genVisTau_matchedRecoBoostedTau_pt)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_eta", genVisTau_matchedRecoBoostedTau_eta)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_phi", genVisTau_matchedRecoBoostedTau_phi)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_mass", genVisTau_matchedRecoBoostedTau_mass)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_decayMode", genVisTau_matchedRecoBoostedTau_decayMode)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiEle2018", genVisTau_matchedRecoBoostedTau_idAntiEle2018)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", genVisTau_matchedRecoBoostedTau_idAntiMu)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2)
-        self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTauIdx", genVisTau_matchedRecoBoostedTauIdx)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_hasMatchedRecoBoostedTau", genVisTau_hasMatchedRecoBoostedTau)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_deltaR", genVisTau_matchedRecoBoostedTau_deltaR)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_pt", genVisTau_matchedRecoBoostedTau_pt)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_eta", genVisTau_matchedRecoBoostedTau_eta)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_phi", genVisTau_matchedRecoBoostedTau_phi)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_mass", genVisTau_matchedRecoBoostedTau_mass)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_decayMode", genVisTau_matchedRecoBoostedTau_decayMode)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiEle2018", genVisTau_matchedRecoBoostedTau_idAntiEle2018)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", genVisTau_matchedRecoBoostedTau_idAntiMu)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2)
+        # self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet)
 
         return True
 
@@ -978,8 +978,8 @@ def run_one_file(args):
                 resonance_pdgid=35,
                 max_dr_ele=0.3,
                 max_dr_muon=0.3,
-                max_dr_hps_tau=0.1,
-                max_dr_boosted_tau=0.3,
+                # max_dr_hps_tau=0.1,
+                # max_dr_boosted_tau=0.3,
                 json_path=f"{base}_GenMatching.json",
             )
         ],
@@ -996,18 +996,16 @@ def run_one_file(args):
     return input_file
 
 if __name__ == "__main__":
-    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching_0_3"
+    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/Run2_matching_0_3"
 
     inputFiles = [
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-1000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-1500_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-2000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-2500_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-3000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-4000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
-        "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-4500_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root" 
-
-
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8.root",
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-1600_TuneCP5_13TeV-madgraph-pythia8.root",
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-2000_TuneCP5_13TeV-madgraph-pythia8.root",
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-2500_TuneCP5_13TeV-madgraph-pythia8.root",
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-3000_TuneCP5_13TeV-madgraph-pythia8.root",
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-4000_TuneCP5_13TeV-madgraph-pythia8.root",
+        "/hdfs/store/user/mithakor/Run2/2018/UnSkimmed/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8.root"
     ]
 
     n_workers = min(40, len(inputFiles)) 
