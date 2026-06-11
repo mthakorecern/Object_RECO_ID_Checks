@@ -84,83 +84,11 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     "muons_to_reco_muons": 0,
                     "visible_taus_to_hps_taus": 0,
                     "visible_taus_to_boosted_taus": 0,
+                    "electron_duplicate_match_attempts_before_unique_assignment": 0,
+                    "events_with_electron_duplicate_match_attempts": 0,
                 },
-
-                "gen_particles_with_matched_reco_passing_id": {
-                    "electrons_cutBasedLoose": 0,
-                    "electrons_cutBasedMedium": 0,
-                    "electrons_cutBasedTight": 0,
-
-                    "muons_looseId": 0,
-                    "muons_mediumId": 0,
-                    "muons_tightId": 0,
-
-                    "boosted_taus_antiEle_antiMu": 0,
-                }
             },
         }
-
-        # ## Matching RECO electrons with GEN electrons
-        # self.out.branch("Electron_truthMatchedToGen", "I", lenVar="nElectron")
-        # self.out.branch("Electron_truthFromTau", "I", lenVar="nElectron")
-        # self.out.branch("Electron_truthFromHiggsTau", "I", lenVar="nElectron")
-        # self.out.branch("Electron_truthTauAncestorIdx", "I", lenVar="nElectron")
-        # self.out.branch("Electron_truthHiggsAncestorIdx", "I", lenVar="nElectron")
-        # self.out.branch("Electron_truthResonanceAncestorIdx", "I", lenVar="nElectron")
-
-        # ## Matching RECO muons with GEN muons
-        # self.out.branch("Muon_truthMatchedToGen", "I", lenVar="nMuon")
-        # self.out.branch("Muon_truthFromTau", "I", lenVar="nMuon")
-        # self.out.branch("Muon_truthFromHiggsTau", "I", lenVar="nMuon")
-        # self.out.branch("Muon_truthTauAncestorIdx", "I", lenVar="nMuon")
-        # self.out.branch("Muon_truthHiggsAncestorIdx", "I", lenVar="nMuon")
-        # self.out.branch("Muon_truthResonanceAncestorIdx", "I", lenVar="nMuon")
-
-        ## GEN electrons kinematic variables
-        self.out.branch("nGenElectronFromHiggsTau", "I")
-        self.out.branch("GenElectronFromHiggsTau_pt", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_eta", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_phi", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_mass", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_charge", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_genPartIdx", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
-
-        ## RECO electron's (matched to the GEN electron) kinematic variables
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectronIdx", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_hasMatchedRecoElectron", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pt", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_eta", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_phi", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", "F", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", "I", lenVar="nGenElectronFromHiggsTau")
-        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", "I", lenVar="nGenElectronFromHiggsTau")
-
-        ## GEN muons kinematic variables
-        self.out.branch("nGenMuonFromHiggsTau", "I")
-        self.out.branch("GenMuonFromHiggsTau_pt", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_eta", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_phi", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_mass", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_charge", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_genPartIdx", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenMuonFromHiggsTau")
-
-        ## RECO muon's (matched to the GEN muon) kinematic variables
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuonIdx", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_hasMatchedRecoMuon", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_pt", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_eta", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_phi", "F", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_looseId", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_mediumId", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_tightId", "I", lenVar="nGenMuonFromHiggsTau")
-        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_genPartFlav", "I", lenVar="nGenMuonFromHiggsTau")
 
         ## GEN vis Taus kinematic variables
         self.out.branch("nGenVisTauFromHiggsTau", "I")
@@ -169,7 +97,6 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenVisTauFromHiggsTau_phi", "F", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_mass", "F", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_status", "I", lenVar="nGenVisTauFromHiggsTau")
-
         self.out.branch("GenVisTauFromHiggsTau_genVisTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenVisTauFromHiggsTau")
@@ -203,6 +130,98 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", "F", lenVar="nGenVisTauFromHiggsTau")
+
+        ## GEN electrons kinematic variables
+        self.out.branch("nGenElectronFromHiggsTau", "I")
+        self.out.branch("GenElectronFromHiggsTau_pt", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_eta", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_phi", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_mass", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_charge", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_genPartIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
+
+        ## RECO electron's (matched to the GEN electron) kinematic variables
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectronIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_hasMatchedRecoElectron", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pt", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_eta", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_phi", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_all", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_chg", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso04_all", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_miniPFRelIso_all", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_miniPFRelIso_chg", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_convVeto", "I", lenVar="nGenElectronFromHiggsTau",)
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_sieie", "F",lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_deltaEtaSC", "F",lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_eInvMinusPInv", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_hoe", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_lostHits","I",lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_deltaR","F", lenVar="nGenElectronFromHiggsTau")
+        
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_deltaR","F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTauIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_pt", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_decayMode","I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTau_deltaR","F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTauIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTau_pt", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTau_decayMode", "I", lenVar="nGenElectronFromHiggsTau")
+
+        # Nearest GEN-matched RECO HPS Tau to matched RECO electron
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_deltaR", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTauIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_pt", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_eta", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_phi", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu", "I", lenVar="nGenElectronFromHiggsTau")
+
+        # Nearest GEN-matched RECO boostedTau to matched RECO electron
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi", "F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", "F", lenVar="nGenElectronFromHiggsTau")
+
+        ## GEN muons kinematic variables
+        self.out.branch("nGenMuonFromHiggsTau", "I")
+        self.out.branch("GenMuonFromHiggsTau_pt", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_eta", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_phi", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_mass", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_charge", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_genPartIdx", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_tauAncestorIdx", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_higgsAncestorIdx", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenMuonFromHiggsTau")
+
+        ## RECO muon's (matched to the GEN muon) kinematic variables
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuonIdx", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_hasMatchedRecoMuon", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_pt", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_eta", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_phi", "F", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_looseId", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_mediumId", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_tightId", "I", lenVar="nGenMuonFromHiggsTau")
+        self.out.branch("GenMuonFromHiggsTau_matchedRecoMuon_genPartFlav", "I", lenVar="nGenMuonFromHiggsTau")
+
+       
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         if self.current_file is not None and self.current_summary is not None:
@@ -329,11 +348,17 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         dphi = self._delta_phi(phi1, phi2)
         return math.sqrt(deta * deta + dphi * dphi)
 
-    def _find_nearest_reco_object(self, reco_coll, gen_eta, gen_phi, max_dr):
+    def _find_nearest_reco_object(self, reco_coll, gen_eta, gen_phi, max_dr, used_indices=None):
         best_idx = -1
         best_dr = 999.0
 
+        if used_indices is None:
+            used_indices = set()
+
         for i, obj in enumerate(reco_coll):
+            if i in used_indices:
+                continue
+            
             dr = self._delta_r(
                 float(gen_eta),
                 float(gen_phi),
@@ -349,6 +374,52 @@ class TruthMatchLeptonEfficiencyProducer(Module):
             return best_idx, best_dr
 
         return -1, 999.0
+
+    def _find_nearest_reco_object_no_dr_cut(self, reco_coll, ref_eta, ref_phi):
+        best_idx = -1
+        best_dr = 999.0
+
+        for i, obj in enumerate(reco_coll):
+            dr = self._delta_r(
+                float(ref_eta),
+                float(ref_phi),
+                float(getattr(obj, "eta", 999.0)),
+                float(getattr(obj, "phi", 999.0)),
+            )
+
+            if dr < best_dr:
+                best_dr = dr
+                best_idx = i
+
+        return best_idx, best_dr
+
+    def _find_nearest_reco_object_from_indices(self, reco_coll, allowed_indices, ref_eta, ref_phi):
+        """
+        Find nearest reco object to ref_eta/ref_phi, but only among allowed reco indices.
+
+        This is useful for finding the nearest GEN-matched RECO tau to an electron.
+        """
+        best_idx = -1
+        best_dr = 999.0
+
+        for i in allowed_indices:
+            if not self._valid_index(i, reco_coll):
+                continue
+
+            obj = reco_coll[i]
+
+            dr = self._delta_r(
+                float(ref_eta),
+                float(ref_phi),
+                float(getattr(obj, "eta", 999.0)),
+                float(getattr(obj, "phi", 999.0)),
+            )
+
+            if dr < best_dr:
+                best_dr = dr
+                best_idx = i
+
+        return best_idx, best_dr
 
     def _find_matched_reco_electron(self, electrons, gen_idx):
         for i, ele in enumerate(electrons):
@@ -445,80 +516,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         raw = self.current_summary["raw_counts_no_fiducial_cuts"]
         self.current_summary["events_processed"] += 1
 
-        # raw["reco_objects"]["electrons_total"] += len(electrons)
-        # raw["reco_objects"]["muons_total"] += len(muons)
-        # raw["reco_objects"]["hps_taus_total"] += len(taus)
-        # raw["reco_objects"]["boosted_taus_total"] += len(boosted_taus)
-
-        # # ------------------------------------------------------------------
-        # # Reco Electron truth labels
-        # # ------------------------------------------------------------------
-        # electron_truthMatchedToGen = []
-        # electron_truthFromTau = []
-        # electron_truthFromHiggsTau = []
-        # electron_truthTauAncestorIdx = []
-        # electron_truthHiggsAncestorIdx = []
-        # electron_truthResonanceAncestorIdx = []
-
-        # for ele in electrons:
-        #     matched = int(self.isMC and int(getattr(ele, "genPartIdx", -1)) >= 0)
-
-        #     tau_idx, higgs_idx, resonance_idx = self._electron_tau_higgs_resonance_ancestors(
-        #         ele,
-        #         genparts,
-        #     )
-
-        #     from_tau = int(tau_idx >= 0)
-        #     from_higgs_tau = int(higgs_idx >= 0)
-
-        #     electron_truthMatchedToGen.append(matched)
-        #     electron_truthFromTau.append(from_tau)
-        #     electron_truthFromHiggsTau.append(from_higgs_tau)
-        #     electron_truthTauAncestorIdx.append(int(tau_idx))
-        #     electron_truthHiggsAncestorIdx.append(int(higgs_idx))
-        #     electron_truthResonanceAncestorIdx.append(int(resonance_idx))
-
-        #     if matched:
-        #         raw["reco_objects"]["electrons_truthMatchedToGen"] += 1
-        #     if from_tau:
-        #         raw["reco_objects"]["electrons_from_tau"] += 1
-        #     if from_higgs_tau:
-        #         raw["reco_objects"]["electrons_from_higgs_tau"] += 1
-
-        # # ------------------------------------------------------------------
-        # # Reco Muon truth labels
-        # # ------------------------------------------------------------------
-        # muon_truthMatchedToGen = []
-        # muon_truthFromTau = []
-        # muon_truthFromHiggsTau = []
-        # muon_truthTauAncestorIdx = []
-        # muon_truthHiggsAncestorIdx = []
-        # muon_truthResonanceAncestorIdx = []
-
-        # for mu in muons:
-        #     matched = int(self.isMC and int(getattr(mu, "genPartIdx", -1)) >= 0)
-
-        #     tau_idx, higgs_idx, resonance_idx = self._muon_tau_higgs_resonance_ancestors(
-        #         mu,
-        #         genparts,
-        #     )
-
-        #     from_tau = int(tau_idx >= 0)
-        #     from_higgs_tau = int(higgs_idx >= 0)
-
-        #     muon_truthMatchedToGen.append(matched)
-        #     muon_truthFromTau.append(from_tau)
-        #     muon_truthFromHiggsTau.append(from_higgs_tau)
-        #     muon_truthTauAncestorIdx.append(int(tau_idx))
-        #     muon_truthHiggsAncestorIdx.append(int(higgs_idx))
-        #     muon_truthResonanceAncestorIdx.append(int(resonance_idx))
-
-        #     if matched:
-        #         raw["reco_objects"]["muons_truthMatchedToGen"] += 1
-        #     if from_tau:
-        #         raw["reco_objects"]["muons_from_tau"] += 1
-        #     if from_higgs_tau:
-        #         raw["reco_objects"]["muons_from_higgs_tau"] += 1
+        event_raw_reco_ele_to_gen_count = {}
+        event_duplicate_ele_attempts = 0
 
         # ------------------------------------------------------------------
         # GEN electron containers
@@ -542,7 +541,49 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genElectron_matchedRecoElectron_vidNestedWPBitmap = []
         genElectron_matchedRecoElectron_cutBased = []
         genElectron_matchedRecoElectron_genPartFlav = []
+        genElectron_matchedRecoElectron_convVeto = []
+        genElectron_matchedRecoElectron_pfRelIso03_all = []
+        genElectron_matchedRecoElectron_pfRelIso03_chg = []
+        genElectron_matchedRecoElectron_pfRelIso04_all = []
+        genElectron_matchedRecoElectron_miniPFRelIso_all = []
+        genElectron_matchedRecoElectron_miniPFRelIso_chg = []
+        genElectron_matchedRecoElectron_sieie = []
+        genElectron_matchedRecoElectron_deltaEtaSC = []
+        genElectron_matchedRecoElectron_eInvMinusPInv = []
+        genElectron_matchedRecoElectron_hoe = []
+        genElectron_matchedRecoElectron_lostHits = []
 
+        genElectron_matchedRecoElectron_deltaR = []
+        genElectron_matchedRecoElectron_nearestRecoTau_deltaR = []
+        genElectron_matchedRecoElectron_nearestRecoTauIdx = []
+        genElectron_matchedRecoElectron_nearestRecoTau_pt = []
+        genElectron_matchedRecoElectron_nearestRecoTau_decayMode = []
+        genElectron_matchedRecoElectron_nearestRecoBoostedTau_deltaR = []
+        genElectron_matchedRecoElectron_nearestRecoBoostedTauIdx = []
+        genElectron_matchedRecoElectron_nearestRecoBoostedTau_pt = []
+        genElectron_matchedRecoElectron_nearestRecoBoostedTau_decayMode = []
+
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_deltaR = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTauIdx = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_pt = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_eta = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_phi = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu = []
+
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018 = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu = []
+        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet = []
+        
 
         # GEN muon containers
         genMuon_pt = []
@@ -606,137 +647,14 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet = []
 
         if self.isMC:
-            for igen, gp in enumerate(genparts):
-
-                # GEN electron from Higgs -> tau -> electron
-                is_ele_target, tau_idx, higgs_idx, resonance_idx = (
-                    self._is_stable_gen_lepton_from_higgs_tau(
-                        genparts,
-                        igen,
-                        abs_lepton_pdgid=11,
-                    )
-                )
-
-                if is_ele_target:
-                    raw["gen_particles_from_higgs_tau"]["electrons"] += 1
-
-                   
-                    genElectron_pt.append(float(gp.pt))
-                    genElectron_eta.append(float(gp.eta))
-                    genElectron_phi.append(float(gp.phi))
-                    genElectron_mass.append(float(gp.mass))
-                    genElectron_charge.append(int(-1 if int(gp.pdgId) == 11 else 1))
-
-                    genElectron_genPartIdx.append(int(igen))
-                    genElectron_tauAncestorIdx.append(int(tau_idx))
-                    genElectron_higgsAncestorIdx.append(int(higgs_idx))
-                    genElectron_resonanceAncestorIdx.append(int(resonance_idx))
-
-                    
-                    reco_idx, reco_ele_dr = self._find_nearest_reco_object(
-                        electrons,
-                        float(gp.eta),
-                        float(gp.phi),
-                        self.max_dr_ele,
-                        )
-
-
-                    if reco_idx >= 0:
-                        ele = electrons[reco_idx]
-                        raw["gen_particles_with_matched_reco"]["electrons_to_reco_electrons"] += 1
-
-                        cut_based = int(getattr(ele, "cutBased", 0))
-                        if cut_based >= 2:
-                            raw["gen_particles_with_matched_reco_passing_id"]["electrons_cutBasedLoose"] += 1
-                        if cut_based >= 3:
-                            raw["gen_particles_with_matched_reco_passing_id"]["electrons_cutBasedMedium"] += 1
-                        if cut_based >= 4:
-                            raw["gen_particles_with_matched_reco_passing_id"]["electrons_cutBasedTight"] += 1
-    
-                        genElectron_matchedRecoElectronIdx.append(int(reco_idx))
-                        genElectron_hasMatchedRecoElectron.append(int(reco_idx >= 0))
-                        genElectron_matchedRecoElectron_pt.append(float(getattr(ele, "pt", -999.0)))
-                        genElectron_matchedRecoElectron_eta.append(float(getattr(ele, "eta", -999.0)))
-                        genElectron_matchedRecoElectron_phi.append(float(getattr(ele, "phi", -999.0)))
-                        genElectron_matchedRecoElectron_superclusterEta.append(float(getattr(ele, "superclusterEta", -999.0)))
-                        genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(getattr(ele, "vidNestedWPBitmap", 0)))
-                        genElectron_matchedRecoElectron_cutBased.append(cut_based)
-                        genElectron_matchedRecoElectron_genPartFlav.append(int(getattr(ele, "genPartFlav", 0)))
-                    else:
-                        genElectron_matchedRecoElectron_pt.append(float(-999.0))
-                        genElectron_matchedRecoElectron_eta.append(float(-999.0))
-                        genElectron_matchedRecoElectron_phi.append(float(-999.0))
-                        genElectron_matchedRecoElectron_superclusterEta.append(float(-999.0))
-                        genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(0))
-                        genElectron_matchedRecoElectron_cutBased.append(int(0))
-                        genElectron_matchedRecoElectron_genPartFlav.append(int(0))
-
-                # GEN muon from Higgs -> tau -> muon
-                is_mu_target, tau_idx, higgs_idx, resonance_idx = (
-                    self._is_stable_gen_lepton_from_higgs_tau(
-                        genparts,
-                        igen,
-                        abs_lepton_pdgid=13,
-                    )
-                )
-
-                if is_mu_target:
-                    raw["gen_particles_from_higgs_tau"]["muons"] += 1
-
-                    reco_idx, reco_muon_dr = self._find_nearest_reco_object(
-                        muons,
-                        float(gp.eta),
-                        float(gp.phi),
-                        self.max_dr_muon,
-                        )
-
-                    genMuon_pt.append(float(gp.pt))
-                    genMuon_eta.append(float(gp.eta))
-                    genMuon_phi.append(float(gp.phi))
-                    genMuon_mass.append(float(gp.mass))
-                    genMuon_charge.append(int(-1 if int(gp.pdgId) == 13 else 1))
-
-                    genMuon_genPartIdx.append(int(igen))
-                    genMuon_tauAncestorIdx.append(int(tau_idx))
-                    genMuon_higgsAncestorIdx.append(int(higgs_idx))
-                    genMuon_resonanceAncestorIdx.append(int(resonance_idx))
-
-                    genMuon_matchedRecoMuonIdx.append(int(reco_idx))
-                    genMuon_hasMatchedRecoMuon.append(int(reco_idx >= 0))
-
-                    if reco_idx >= 0:
-                        mu = muons[reco_idx]
-                        raw["gen_particles_with_matched_reco"]["muons_to_reco_muons"] += 1
-
-                        loose_id = int(bool(getattr(mu, "looseId", False)))
-                        medium_id = int(bool(getattr(mu, "mediumId", False)))
-                        tight_id = int(bool(getattr(mu, "tightId", False)))
-
-                        if loose_id:
-                            raw["gen_particles_with_matched_reco_passing_id"]["muons_looseId"] += 1
-                        if medium_id:
-                            raw["gen_particles_with_matched_reco_passing_id"]["muons_mediumId"] += 1
-                        if tight_id:
-                            raw["gen_particles_with_matched_reco_passing_id"]["muons_tightId"] += 1
-
-                        genMuon_matchedRecoMuon_pt.append(float(getattr(mu, "pt", -999.0)))
-                        genMuon_matchedRecoMuon_eta.append(float(getattr(mu, "eta", -999.0)))
-                        genMuon_matchedRecoMuon_phi.append(float(getattr(mu, "phi", -999.0)))
-                        genMuon_matchedRecoMuon_looseId.append(loose_id)
-                        genMuon_matchedRecoMuon_mediumId.append(medium_id)
-                        genMuon_matchedRecoMuon_tightId.append(tight_id)
-                        genMuon_matchedRecoMuon_genPartFlav.append(int(getattr(mu, "genPartFlav", 0)))
-                    else:
-                        genMuon_matchedRecoMuon_pt.append(float(-999.0))
-                        genMuon_matchedRecoMuon_eta.append(float(-999.0))
-                        genMuon_matchedRecoMuon_phi.append(float(-999.0))
-                        genMuon_matchedRecoMuon_looseId.append(int(0))
-                        genMuon_matchedRecoMuon_mediumId.append(int(0))
-                        genMuon_matchedRecoMuon_tightId.append(int(0))
-                        genMuon_matchedRecoMuon_genPartFlav.append(int(0))
-
 
             # GenVisTau from Higgs -> tau, then DeltaR match to Tau/boostedTau
+            used_reco_tau_indices = set()
+            used_reco_boosted_tau_indices = set()
+
+            genmatched_reco_tau_indices = []
+            genmatched_reco_boosted_tau_indices = []
+            
             for ivis, vis in enumerate(genvistau):
 
                 tau_idx = int(getattr(vis, "genPartIdxMother", -1))
@@ -763,7 +681,13 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     float(vis.eta),
                     float(vis.phi),
                     self.max_dr_hps_tau,
+                    used_indices=used_reco_tau_indices,
+
                 )
+
+                if reco_tau_idx >= 0:
+                    used_reco_tau_indices.add(reco_tau_idx)
+                    genmatched_reco_tau_indices.append(reco_tau_idx)
 
                 has_reco_tau = int(reco_tau_idx >= 0)
                 if has_reco_tau:
@@ -778,7 +702,14 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     float(vis.eta),
                     float(vis.phi),
                     self.max_dr_boosted_tau,
+                    used_indices=used_reco_boosted_tau_indices,
+
                 )
+
+                
+                if reco_btau_idx >= 0:
+                    used_reco_boosted_tau_indices.add(reco_btau_idx)
+                    genmatched_reco_boosted_tau_indices.append(reco_btau_idx)
 
                 has_reco_btau = int(reco_btau_idx >= 0)
                 if has_reco_btau:
@@ -837,8 +768,6 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     anti_ele = int(getattr(reco_btau, "idAntiEle2018", 0))
                     anti_mu = int(getattr(reco_btau, "idAntiMu", 0))
 
-                    if ((anti_ele & 2) == 2) and ((anti_mu & 1) == 1):
-                        raw["gen_particles_with_matched_reco_passing_id"]["boosted_taus_antiEle_antiMu"] += 1
 
                     genVisTau_matchedRecoBoostedTau_pt.append(float(getattr(reco_btau, "pt", -999.0)))
                     genVisTau_matchedRecoBoostedTau_eta.append(float(getattr(reco_btau, "eta", -999.0)))
@@ -860,65 +789,299 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2.append(int(0))
                     genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(float(-999.0))
 
+
+
+            used_reco_electron_indices = set()
+            used_reco_muon_indices = set()
+            for igen, gp in enumerate(genparts):
+
+                # GEN electron from Higgs -> tau -> electron
+                is_ele_target, tau_idx, higgs_idx, resonance_idx = (
+                    self._is_stable_gen_lepton_from_higgs_tau(
+                        genparts,
+                        igen,
+                        abs_lepton_pdgid=11,
+                    )
+                )
+
+                if is_ele_target:
+                    raw["gen_particles_from_higgs_tau"]["electrons"] += 1
+
+                   
+                    genElectron_pt.append(float(gp.pt))
+                    genElectron_eta.append(float(gp.eta))
+                    genElectron_phi.append(float(gp.phi))
+                    genElectron_mass.append(float(gp.mass))
+                    genElectron_charge.append(int(-1 if int(gp.pdgId) == 11 else 1))
+
+                    genElectron_genPartIdx.append(int(igen))
+                    genElectron_tauAncestorIdx.append(int(tau_idx))
+                    genElectron_higgsAncestorIdx.append(int(higgs_idx))
+                    genElectron_resonanceAncestorIdx.append(int(resonance_idx))
+
+                    
+                    # Diagnostic only:
+                    # What would this GEN electron match to if we did not enforce unique RECO usage?
+                    raw_reco_idx, raw_reco_dr = self._find_nearest_reco_object(
+                        electrons,
+                        float(gp.eta),
+                        float(gp.phi),
+                        self.max_dr_ele,
+                        used_indices=None,
+                    )
+
+                    if raw_reco_idx >= 0:
+                        event_raw_reco_ele_to_gen_count[raw_reco_idx] = (event_raw_reco_ele_to_gen_count.get(raw_reco_idx, 0) + 1)
+
+                        if event_raw_reco_ele_to_gen_count[raw_reco_idx] > 1:
+                            event_duplicate_ele_attempts += 1
+
+                    reco_idx, reco_ele_dr = self._find_nearest_reco_object(
+                        electrons,
+                        float(gp.eta),
+                        float(gp.phi),
+                        self.max_dr_ele,
+                        used_indices=used_reco_electron_indices
+                        )
+                    genElectron_matchedRecoElectron_deltaR.append(float(reco_ele_dr))
+                    
+                    if reco_idx >= 0:
+                        used_reco_electron_indices.add(reco_idx)
+                        ele = electrons[reco_idx]
+                        cut_based = int(getattr(ele, "cutBased", 0))
+                        raw["gen_particles_with_matched_reco"]["electrons_to_reco_electrons"] += 1
+    
+                        genElectron_matchedRecoElectronIdx.append(int(reco_idx))
+                        genElectron_hasMatchedRecoElectron.append(int(reco_idx >= 0))
+                        genElectron_matchedRecoElectron_pt.append(float(getattr(ele, "pt", -999.0)))
+                        genElectron_matchedRecoElectron_eta.append(float(getattr(ele, "eta", -999.0)))
+                        genElectron_matchedRecoElectron_phi.append(float(getattr(ele, "phi", -999.0)))
+                        genElectron_matchedRecoElectron_superclusterEta.append(float(getattr(ele, "superclusterEta", -999.0)))
+                        genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(getattr(ele, "vidNestedWPBitmap", 0)))
+                        genElectron_matchedRecoElectron_cutBased.append(cut_based)
+                        genElectron_matchedRecoElectron_genPartFlav.append(int(getattr(ele, "genPartFlav", 0)))
+
+
+                        genElectron_matchedRecoElectron_convVeto.append(int(bool(getattr(ele, "convVeto", False))))
+                        genElectron_matchedRecoElectron_pfRelIso03_all.append(float(getattr(ele, "pfRelIso03_all", -999.0)))
+                        genElectron_matchedRecoElectron_pfRelIso03_chg.append(float(getattr(ele, "pfRelIso03_chg", -999.0)))
+                        genElectron_matchedRecoElectron_pfRelIso04_all.append(float(getattr(ele, "pfRelIso04_all", -999.0)))
+                        genElectron_matchedRecoElectron_miniPFRelIso_all.append(float(getattr(ele, "miniPFRelIso_all", -999.0)))
+                        genElectron_matchedRecoElectron_miniPFRelIso_chg.append(float(getattr(ele, "miniPFRelIso_chg", -999.0)))
+                        genElectron_matchedRecoElectron_sieie.append(float(getattr(ele, "sieie", -999.0)))
+                        genElectron_matchedRecoElectron_deltaEtaSC.append(float(getattr(ele, "deltaEtaSC", -999.0)))
+                        genElectron_matchedRecoElectron_eInvMinusPInv.append(float(getattr(ele, "eInvMinusPInv", -999.0)))
+                        genElectron_matchedRecoElectron_hoe.append(float(getattr(ele, "hoe", -999.0)))
+                        genElectron_matchedRecoElectron_lostHits.append(int(getattr(ele, "lostHits", -1)))
+                        
+                        ### Nearest Taus are not GEN matched
+
+                        nearest_tau_idx, nearest_tau_dr = self._find_nearest_reco_object_no_dr_cut(taus, float(ele.eta), float(ele.phi))
+                        genElectron_matchedRecoElectron_nearestRecoTauIdx.append(int(nearest_tau_idx))
+                        genElectron_matchedRecoElectron_nearestRecoTau_deltaR.append(float(nearest_tau_dr))
+
+                        if nearest_tau_idx >= 0:
+                            nearest_tau = taus[nearest_tau_idx]
+                            genElectron_matchedRecoElectron_nearestRecoTau_pt.append(float(getattr(nearest_tau, "pt", -999.0)))
+                            genElectron_matchedRecoElectron_nearestRecoTau_decayMode.append(int(getattr(nearest_tau, "decayMode", -1)))
+                        else:
+                            genElectron_matchedRecoElectron_nearestRecoTau_pt.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestRecoTau_decayMode.append(int(-1))
+
+                        nearest_btau_idx, nearest_btau_dr = self._find_nearest_reco_object_no_dr_cut(
+                            boosted_taus,
+                            float(ele.eta),
+                            float(ele.phi),
+                        )
+
+                        genElectron_matchedRecoElectron_nearestRecoBoostedTauIdx.append(int(nearest_btau_idx))
+                        genElectron_matchedRecoElectron_nearestRecoBoostedTau_deltaR.append(float(nearest_btau_dr))
+
+                        if nearest_btau_idx >= 0:
+                            nearest_btau = boosted_taus[nearest_btau_idx]
+                            genElectron_matchedRecoElectron_nearestRecoBoostedTau_pt.append(
+                                float(getattr(nearest_btau, "pt", -999.0))
+                            )
+                            genElectron_matchedRecoElectron_nearestRecoBoostedTau_decayMode.append(
+                                int(getattr(nearest_btau, "decayMode", -1))
+                            )
+                        else:
+                            genElectron_matchedRecoElectron_nearestRecoBoostedTau_pt.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestRecoBoostedTau_decayMode.append(int(-1))
+
+
+                        ########### Nearest Taus are GEN matched
+
+                        nearest_gm_tau_idx, nearest_gm_tau_dr = (self._find_nearest_reco_object_from_indices(taus, genmatched_reco_tau_indices, float(ele.eta), float(ele.phi)))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTauIdx.append(int(nearest_gm_tau_idx))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_deltaR.append(float(nearest_gm_tau_dr))
+
+                        if nearest_gm_tau_idx >= 0:
+                            gm_tau = taus[nearest_gm_tau_idx]
+
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_pt.append(float(getattr(gm_tau, "pt", -999.0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_eta.append(float(getattr(gm_tau, "eta", -999.0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_phi.append(float(getattr(gm_tau, "phi", -999.0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode.append(int(getattr(gm_tau, "decayMode", -1)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs.append(int(getattr(gm_tau, "idDecayModeNewDMs", 0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet.append(self._get_hps_tau_deeptau_vsjet(gm_tau))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe.append(self._get_hps_tau_deeptau_vse(gm_tau))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu.append(self._get_hps_tau_deeptau_vsmu(gm_tau))
+                        else:
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_pt.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_eta.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_phi.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode.append(int(-1))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs.append(int(0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet.append(int(0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe.append(int(0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu.append(int(0))
+
+                        nearest_gm_btau_idx, nearest_gm_btau_dr = (self._find_nearest_reco_object_from_indices(boosted_taus, genmatched_reco_boosted_tau_indices, float(ele.eta), float(ele.phi)))
+
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx.append(int(nearest_gm_btau_idx))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR.append(float(nearest_gm_btau_dr))
+
+                        if nearest_gm_btau_idx >= 0:
+                            gm_btau = boosted_taus[nearest_gm_btau_idx]
+
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt.append(float(getattr(gm_btau, "pt", -999.0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta.append(float(getattr(gm_btau, "eta", -999.0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi.append(float(getattr(gm_btau, "phi", -999.0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode.append(int(getattr(gm_btau, "decayMode", -1)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018.append(int(getattr(gm_btau, "idAntiEle2018", 0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu.append(int(getattr(gm_btau, "idAntiMu", 0)))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(self._get_boosted_tau_deeptau_vsjet(gm_btau))
+                        else:
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi.append(float(-999.0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode.append(int(-1))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018.append(int(0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu.append(int(0))
+                            genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(float(-999.0))
+
+
+                    else:
+                        genElectron_matchedRecoElectron_pt.append(float(-999.0))
+                        genElectron_matchedRecoElectron_eta.append(float(-999.0))
+                        genElectron_matchedRecoElectron_phi.append(float(-999.0))
+                        genElectron_matchedRecoElectron_superclusterEta.append(float(-999.0))
+                        genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(0))
+                        genElectron_matchedRecoElectron_cutBased.append(int(0))
+                        genElectron_matchedRecoElectron_genPartFlav.append(int(0))
+                        genElectron_matchedRecoElectronIdx.append(int(-1))
+                        genElectron_hasMatchedRecoElectron.append(int(0))
+                        genElectron_matchedRecoElectron_convVeto.append(int(0))
+                        genElectron_matchedRecoElectron_pfRelIso03_all.append(float(-999.0))
+                        genElectron_matchedRecoElectron_pfRelIso03_chg.append(float(-999.0))
+                        genElectron_matchedRecoElectron_pfRelIso04_all.append(float(-999.0))
+                        genElectron_matchedRecoElectron_miniPFRelIso_all.append(float(-999.0))
+                        genElectron_matchedRecoElectron_miniPFRelIso_chg.append(float(-999.0))
+                        genElectron_matchedRecoElectron_sieie.append(float(-999.0))
+                        genElectron_matchedRecoElectron_deltaEtaSC.append(float(-999.0))
+                        genElectron_matchedRecoElectron_eInvMinusPInv.append(float(-999.0))
+                        genElectron_matchedRecoElectron_hoe.append(float(-999.0))
+                        genElectron_matchedRecoElectron_lostHits.append(int(-1))
+
+                        genElectron_matchedRecoElectron_nearestRecoTauIdx.append(int(-1))
+                        genElectron_matchedRecoElectron_nearestRecoTau_deltaR.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestRecoTau_pt.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestRecoTau_decayMode.append(int(-1))
+
+                        genElectron_matchedRecoElectron_nearestRecoBoostedTauIdx.append(int(-1))
+                        genElectron_matchedRecoElectron_nearestRecoBoostedTau_deltaR.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestRecoBoostedTau_pt.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestRecoBoostedTau_decayMode.append(int(-1))
+                        
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTauIdx.append(int(-1))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_deltaR.append(float(999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_pt.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_eta.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_phi.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode.append(int(-1))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs.append(int(0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet.append(int(0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe.append(int(0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu.append(int(0))
+
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx.append(int(-1))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR.append(float(999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi.append(float(-999.0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode.append(int(-1))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018.append(int(0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu.append(int(0))
+                        genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet.append(float(-999.0))
+
+
+
+                # GEN muon from Higgs -> tau -> muon
+                is_mu_target, tau_idx, higgs_idx, resonance_idx = (
+                    self._is_stable_gen_lepton_from_higgs_tau(
+                        genparts,
+                        igen,
+                        abs_lepton_pdgid=13,
+                    )
+                )
+
+                if is_mu_target:
+                    raw["gen_particles_from_higgs_tau"]["muons"] += 1
+
+                    reco_idx, reco_muon_dr = self._find_nearest_reco_object(
+                        muons,
+                        float(gp.eta),
+                        float(gp.phi),
+                        self.max_dr_muon,
+                        used_indices=used_reco_muon_indices
+                        )
+
+                    genMuon_pt.append(float(gp.pt))
+                    genMuon_eta.append(float(gp.eta))
+                    genMuon_phi.append(float(gp.phi))
+                    genMuon_mass.append(float(gp.mass))
+                    genMuon_charge.append(int(-1 if int(gp.pdgId) == 13 else 1))
+
+                    genMuon_genPartIdx.append(int(igen))
+                    genMuon_tauAncestorIdx.append(int(tau_idx))
+                    genMuon_higgsAncestorIdx.append(int(higgs_idx))
+                    genMuon_resonanceAncestorIdx.append(int(resonance_idx))
+
+                    genMuon_matchedRecoMuonIdx.append(int(reco_idx))
+                    genMuon_hasMatchedRecoMuon.append(int(reco_idx >= 0))
+
+                    if reco_idx >= 0:
+                        used_reco_muon_indices.add(reco_idx)
+                        mu = muons[reco_idx]
+                        loose_id = int(bool(getattr(mu, "looseId", False)))
+                        medium_id = int(bool(getattr(mu, "mediumId", False)))
+                        tight_id = int(bool(getattr(mu, "tightId", False)))
+                        raw["gen_particles_with_matched_reco"]["muons_to_reco_muons"] += 1
+
+                        genMuon_matchedRecoMuon_pt.append(float(getattr(mu, "pt", -999.0)))
+                        genMuon_matchedRecoMuon_eta.append(float(getattr(mu, "eta", -999.0)))
+                        genMuon_matchedRecoMuon_phi.append(float(getattr(mu, "phi", -999.0)))
+                        genMuon_matchedRecoMuon_looseId.append(loose_id)
+                        genMuon_matchedRecoMuon_mediumId.append(medium_id)
+                        genMuon_matchedRecoMuon_tightId.append(tight_id)
+                        genMuon_matchedRecoMuon_genPartFlav.append(int(getattr(mu, "genPartFlav", 0)))
+                    else:
+                        genMuon_matchedRecoMuon_pt.append(float(-999.0))
+                        genMuon_matchedRecoMuon_eta.append(float(-999.0))
+                        genMuon_matchedRecoMuon_phi.append(float(-999.0))
+                        genMuon_matchedRecoMuon_looseId.append(int(0))
+                        genMuon_matchedRecoMuon_mediumId.append(int(0))
+                        genMuon_matchedRecoMuon_tightId.append(int(0))
+                        genMuon_matchedRecoMuon_genPartFlav.append(int(0))
+
+            if event_duplicate_ele_attempts > 0:
+                raw["gen_particles_with_matched_reco"]["events_with_electron_duplicate_match_attempts"] += 1
+
+                raw["gen_particles_with_matched_reco"]["electron_duplicate_match_attempts_before_unique_assignment"] += event_duplicate_ele_attempts
+
+
         
-        # self.out.fillBranch("Electron_truthMatchedToGen", electron_truthMatchedToGen)
-        # self.out.fillBranch("Electron_truthFromTau", electron_truthFromTau)
-        # self.out.fillBranch("Electron_truthFromHiggsTau", electron_truthFromHiggsTau)
-        # self.out.fillBranch("Electron_truthTauAncestorIdx", electron_truthTauAncestorIdx)
-        # self.out.fillBranch("Electron_truthHiggsAncestorIdx", electron_truthHiggsAncestorIdx)
-        # self.out.fillBranch("Electron_truthResonanceAncestorIdx", electron_truthResonanceAncestorIdx)
-
-        # self.out.fillBranch("Muon_truthMatchedToGen", muon_truthMatchedToGen)
-        # self.out.fillBranch("Muon_truthFromTau", muon_truthFromTau)
-        # self.out.fillBranch("Muon_truthFromHiggsTau", muon_truthFromHiggsTau)
-        # self.out.fillBranch("Muon_truthTauAncestorIdx", muon_truthTauAncestorIdx)
-        # self.out.fillBranch("Muon_truthHiggsAncestorIdx", muon_truthHiggsAncestorIdx)
-        # self.out.fillBranch("Muon_truthResonanceAncestorIdx", muon_truthResonanceAncestorIdx)
-
-        self.out.fillBranch("nGenElectronFromHiggsTau", len(genElectron_pt))
-        self.out.fillBranch("GenElectronFromHiggsTau_pt", genElectron_pt)
-        self.out.fillBranch("GenElectronFromHiggsTau_eta", genElectron_eta)
-        self.out.fillBranch("GenElectronFromHiggsTau_phi", genElectron_phi)
-        self.out.fillBranch("GenElectronFromHiggsTau_mass", genElectron_mass)
-        self.out.fillBranch("GenElectronFromHiggsTau_charge", genElectron_charge)
-        self.out.fillBranch("GenElectronFromHiggsTau_genPartIdx", genElectron_genPartIdx)
-        self.out.fillBranch("GenElectronFromHiggsTau_tauAncestorIdx", genElectron_tauAncestorIdx)
-        self.out.fillBranch("GenElectronFromHiggsTau_higgsAncestorIdx", genElectron_higgsAncestorIdx)
-        self.out.fillBranch("GenElectronFromHiggsTau_resonanceAncestorIdx", genElectron_resonanceAncestorIdx)
-
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectronIdx", genElectron_matchedRecoElectronIdx)
-        self.out.fillBranch("GenElectronFromHiggsTau_hasMatchedRecoElectron", genElectron_hasMatchedRecoElectron)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pt", genElectron_matchedRecoElectron_pt)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_eta", genElectron_matchedRecoElectron_eta)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_phi", genElectron_matchedRecoElectron_phi)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", genElectron_matchedRecoElectron_superclusterEta)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", genElectron_matchedRecoElectron_vidNestedWPBitmap)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", genElectron_matchedRecoElectron_cutBased)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", genElectron_matchedRecoElectron_genPartFlav)
-
-        
-        self.out.fillBranch("nGenMuonFromHiggsTau", len(genMuon_pt))
-        self.out.fillBranch("GenMuonFromHiggsTau_pt", genMuon_pt)
-        self.out.fillBranch("GenMuonFromHiggsTau_eta", genMuon_eta)
-        self.out.fillBranch("GenMuonFromHiggsTau_phi", genMuon_phi)
-        self.out.fillBranch("GenMuonFromHiggsTau_mass", genMuon_mass)
-        self.out.fillBranch("GenMuonFromHiggsTau_charge", genMuon_charge)
-        self.out.fillBranch("GenMuonFromHiggsTau_genPartIdx", genMuon_genPartIdx)
-        self.out.fillBranch("GenMuonFromHiggsTau_tauAncestorIdx", genMuon_tauAncestorIdx)
-        self.out.fillBranch("GenMuonFromHiggsTau_higgsAncestorIdx", genMuon_higgsAncestorIdx)
-        self.out.fillBranch("GenMuonFromHiggsTau_resonanceAncestorIdx", genMuon_resonanceAncestorIdx)
-
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuonIdx", genMuon_matchedRecoMuonIdx)
-        self.out.fillBranch("GenMuonFromHiggsTau_hasMatchedRecoMuon", genMuon_hasMatchedRecoMuon)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_pt", genMuon_matchedRecoMuon_pt)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_eta", genMuon_matchedRecoMuon_eta)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_phi", genMuon_matchedRecoMuon_phi)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_looseId", genMuon_matchedRecoMuon_looseId)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_mediumId", genMuon_matchedRecoMuon_mediumId)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_tightId", genMuon_matchedRecoMuon_tightId)
-        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_genPartFlav", genMuon_matchedRecoMuon_genPartFlav)
-
-
         self.out.fillBranch("nGenVisTauFromHiggsTau", len(genVisTau_pt))
         self.out.fillBranch("GenVisTauFromHiggsTau_pt", genVisTau_pt)
         self.out.fillBranch("GenVisTauFromHiggsTau_eta", genVisTau_eta)
@@ -956,6 +1119,90 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", genVisTau_matchedRecoBoostedTau_idAntiMu)
         self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", genVisTau_matchedRecoBoostedTau_idMVAnewDM2017v2)
         self.out.fillBranch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet)
+        
+        self.out.fillBranch("nGenElectronFromHiggsTau", len(genElectron_pt))
+        self.out.fillBranch("GenElectronFromHiggsTau_pt", genElectron_pt)
+        self.out.fillBranch("GenElectronFromHiggsTau_eta", genElectron_eta)
+        self.out.fillBranch("GenElectronFromHiggsTau_phi", genElectron_phi)
+        self.out.fillBranch("GenElectronFromHiggsTau_mass", genElectron_mass)
+        self.out.fillBranch("GenElectronFromHiggsTau_charge", genElectron_charge)
+        self.out.fillBranch("GenElectronFromHiggsTau_genPartIdx", genElectron_genPartIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_tauAncestorIdx", genElectron_tauAncestorIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_higgsAncestorIdx", genElectron_higgsAncestorIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_resonanceAncestorIdx", genElectron_resonanceAncestorIdx)
+
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectronIdx", genElectron_matchedRecoElectronIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_hasMatchedRecoElectron", genElectron_hasMatchedRecoElectron)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pt", genElectron_matchedRecoElectron_pt)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_eta", genElectron_matchedRecoElectron_eta)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_phi", genElectron_matchedRecoElectron_phi)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", genElectron_matchedRecoElectron_superclusterEta)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", genElectron_matchedRecoElectron_vidNestedWPBitmap)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", genElectron_matchedRecoElectron_cutBased)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", genElectron_matchedRecoElectron_genPartFlav)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_convVeto", genElectron_matchedRecoElectron_convVeto)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_all", genElectron_matchedRecoElectron_pfRelIso03_all)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_chg",genElectron_matchedRecoElectron_pfRelIso03_chg)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso04_all",genElectron_matchedRecoElectron_pfRelIso04_all)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_miniPFRelIso_all",genElectron_matchedRecoElectron_miniPFRelIso_all)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_miniPFRelIso_chg",genElectron_matchedRecoElectron_miniPFRelIso_chg)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_sieie",genElectron_matchedRecoElectron_sieie)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_deltaEtaSC",genElectron_matchedRecoElectron_deltaEtaSC)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_eInvMinusPInv",genElectron_matchedRecoElectron_eInvMinusPInv)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_hoe",genElectron_matchedRecoElectron_hoe)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_lostHits",genElectron_matchedRecoElectron_lostHits)
+
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_deltaR",genElectron_matchedRecoElectron_deltaR)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_deltaR",genElectron_matchedRecoElectron_nearestRecoTau_deltaR)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTauIdx",genElectron_matchedRecoElectron_nearestRecoTauIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_pt",genElectron_matchedRecoElectron_nearestRecoTau_pt)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_decayMode",genElectron_matchedRecoElectron_nearestRecoTau_decayMode)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTau_deltaR",genElectron_matchedRecoElectron_nearestRecoBoostedTau_deltaR)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTauIdx",genElectron_matchedRecoElectron_nearestRecoBoostedTauIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTau_pt",genElectron_matchedRecoElectron_nearestRecoBoostedTau_pt)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoBoostedTau_decayMode",genElectron_matchedRecoElectron_nearestRecoBoostedTau_decayMode)
+
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_deltaR", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_deltaR)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTauIdx", genElectron_matchedRecoElectron_nearestGenMatchedRecoTauIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_pt", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_pt)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_eta", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_eta)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_phi", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_phi)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_decayMode)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDecayModeNewDMs)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu)
+
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_eta)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_phi)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet)
+     
+        self.out.fillBranch("nGenMuonFromHiggsTau", len(genMuon_pt))
+        self.out.fillBranch("GenMuonFromHiggsTau_pt", genMuon_pt)
+        self.out.fillBranch("GenMuonFromHiggsTau_eta", genMuon_eta)
+        self.out.fillBranch("GenMuonFromHiggsTau_phi", genMuon_phi)
+        self.out.fillBranch("GenMuonFromHiggsTau_mass", genMuon_mass)
+        self.out.fillBranch("GenMuonFromHiggsTau_charge", genMuon_charge)
+        self.out.fillBranch("GenMuonFromHiggsTau_genPartIdx", genMuon_genPartIdx)
+        self.out.fillBranch("GenMuonFromHiggsTau_tauAncestorIdx", genMuon_tauAncestorIdx)
+        self.out.fillBranch("GenMuonFromHiggsTau_higgsAncestorIdx", genMuon_higgsAncestorIdx)
+        self.out.fillBranch("GenMuonFromHiggsTau_resonanceAncestorIdx", genMuon_resonanceAncestorIdx)
+
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuonIdx", genMuon_matchedRecoMuonIdx)
+        self.out.fillBranch("GenMuonFromHiggsTau_hasMatchedRecoMuon", genMuon_hasMatchedRecoMuon)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_pt", genMuon_matchedRecoMuon_pt)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_eta", genMuon_matchedRecoMuon_eta)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_phi", genMuon_matchedRecoMuon_phi)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_looseId", genMuon_matchedRecoMuon_looseId)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_mediumId", genMuon_matchedRecoMuon_mediumId)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_tightId", genMuon_matchedRecoMuon_tightId)
+        self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_genPartFlav", genMuon_matchedRecoMuon_genPartFlav)
 
         return True
 
@@ -980,7 +1227,7 @@ def run_one_file(args):
                 max_dr_muon=0.3,
                 max_dr_hps_tau=0.1,
                 max_dr_boosted_tau=0.3,
-                json_path=f"{base}_GenMatching.json",
+                json_path=f"{base}_Gen.json",
             )
         ],
         provenance=True,
@@ -989,14 +1236,14 @@ def run_one_file(args):
         postfix="",
         haddFileName=None,
         outputbranchsel="Datadrop.txt",
-        # maxEntries=2000,
+        # maxEntries=10,
         # jsonInput=runsAndLumis(),
     )
     p.run()
     return input_file
 
 if __name__ == "__main__":
-    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching_0_3"
+    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching_0_3_Added_nearestTau_match"
 
     inputFiles = [
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-1000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
@@ -1006,8 +1253,6 @@ if __name__ == "__main__":
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-3000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-4000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-4500_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root" 
-
-
     ]
 
     n_workers = min(40, len(inputFiles)) 
