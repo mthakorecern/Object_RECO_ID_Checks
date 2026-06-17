@@ -116,6 +116,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSjet", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSe", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoTau_idDeepTau2018v2p5VSmu", "I", lenVar="nGenVisTauFromHiggsTau")
+        self.out.branch("nGenMatchedRecoTauFromHiggsTau", "I")
+
 
         # Matched boosted Tau kinematic variables
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTauIdx", "I", lenVar="nGenVisTauFromHiggsTau")
@@ -130,6 +132,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idAntiMu", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_idMVAnewDM2017v2", "I", lenVar="nGenVisTauFromHiggsTau")
         self.out.branch("GenVisTauFromHiggsTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", "F", lenVar="nGenVisTauFromHiggsTau")
+        self.out.branch("nGenMatchedRecoBoostedTauFromHiggsTau", "I")
 
         ## GEN electrons kinematic variables
         self.out.branch("nGenElectronFromHiggsTau", "I")
@@ -144,6 +147,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenElectronFromHiggsTau_resonanceAncestorIdx", "I", lenVar="nGenElectronFromHiggsTau")
 
         ## RECO electron's (matched to the GEN electron) kinematic variables
+        self.out.branch("nGenMatchedRecoElectronFromHiggsTau", "I")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectronIdx", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_hasMatchedRecoElectron", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pt", "F", lenVar="nGenElectronFromHiggsTau")
@@ -151,7 +155,10 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_phi", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmapHEEP", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", "I", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased_HEEP", "I", lenVar="nGenElectronFromHiggsTau")
+
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_all", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_chg", "F", lenVar="nGenElectronFromHiggsTau")
@@ -165,6 +172,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_hoe", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_lostHits","I",lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_deltaR","F", lenVar="nGenElectronFromHiggsTau")
+        self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_rawEnergy","F", lenVar="nGenElectronFromHiggsTau")
+
         
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_deltaR","F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTauIdx", "I", lenVar="nGenElectronFromHiggsTau")
@@ -187,6 +196,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu", "I", lenVar="nGenElectronFromHiggsTau")
 
+
         # Nearest GEN-matched RECO boostedTau to matched RECO electron
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR", "F", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx", "I", lenVar="nGenElectronFromHiggsTau")
@@ -198,8 +208,10 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu", "I", lenVar="nGenElectronFromHiggsTau")
         self.out.branch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", "F", lenVar="nGenElectronFromHiggsTau")
 
+
         ## GEN muons kinematic variables
         self.out.branch("nGenMuonFromHiggsTau", "I")
+        self.out.branch("nGenMatchedRecoMuonFromHiggsTau", "I")
         self.out.branch("GenMuonFromHiggsTau_pt", "F", lenVar="nGenMuonFromHiggsTau")
         self.out.branch("GenMuonFromHiggsTau_eta", "F", lenVar="nGenMuonFromHiggsTau")
         self.out.branch("GenMuonFromHiggsTau_phi", "F", lenVar="nGenMuonFromHiggsTau")
@@ -519,9 +531,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         event_raw_reco_ele_to_gen_count = {}
         event_duplicate_ele_attempts = 0
 
-        # ------------------------------------------------------------------
-        # GEN electron containers
-        # ------------------------------------------------------------------
+
         genElectron_pt = []
         genElectron_eta = []
         genElectron_phi = []
@@ -540,6 +550,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genElectron_matchedRecoElectron_superclusterEta = []
         genElectron_matchedRecoElectron_vidNestedWPBitmap = []
         genElectron_matchedRecoElectron_cutBased = []
+        genElectron_matchedRecoElectron_vidNestedWPBitmapHEEP	 = []
+        genElectron_matchedRecoElectron_cutBased_HEEP = []
         genElectron_matchedRecoElectron_genPartFlav = []
         genElectron_matchedRecoElectron_convVeto = []
         genElectron_matchedRecoElectron_pfRelIso03_all = []
@@ -552,6 +564,9 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genElectron_matchedRecoElectron_eInvMinusPInv = []
         genElectron_matchedRecoElectron_hoe = []
         genElectron_matchedRecoElectron_lostHits = []
+        genElectron_matchedRecoElectron_rawEnergy = []
+
+
 
         genElectron_matchedRecoElectron_deltaR = []
         genElectron_matchedRecoElectron_nearestRecoTau_deltaR = []
@@ -647,6 +662,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         genVisTau_matchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet = []
 
         if self.isMC:
+            nGenMatchedRecoElectronFromHiggsTau = 0
+            nGenMatchedRecoMuonFromHiggsTau = 0
 
             # GenVisTau from Higgs -> tau, then DeltaR match to Tau/boostedTau
             used_reco_tau_indices = set()
@@ -846,9 +863,12 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                     genElectron_matchedRecoElectron_deltaR.append(float(reco_ele_dr))
                     
                     if reco_idx >= 0:
+                        nGenMatchedRecoElectronFromHiggsTau += 1
                         used_reco_electron_indices.add(reco_idx)
                         ele = electrons[reco_idx]
                         cut_based = int(getattr(ele, "cutBased", 0))
+                        cutBased_HEEP = int(getattr(ele, "cutBased_HEEP", 0))
+
                         raw["gen_particles_with_matched_reco"]["electrons_to_reco_electrons"] += 1
     
                         genElectron_matchedRecoElectronIdx.append(int(reco_idx))
@@ -859,6 +879,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_superclusterEta.append(float(getattr(ele, "superclusterEta", -999.0)))
                         genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(getattr(ele, "vidNestedWPBitmap", 0)))
                         genElectron_matchedRecoElectron_cutBased.append(cut_based)
+                        genElectron_matchedRecoElectron_vidNestedWPBitmapHEEP.append(int(getattr(ele, "vidNestedWPBitmapHEEP", 0)))
+                        genElectron_matchedRecoElectron_cutBased_HEEP.append(cutBased_HEEP)
                         genElectron_matchedRecoElectron_genPartFlav.append(int(getattr(ele, "genPartFlav", 0)))
 
 
@@ -873,6 +895,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_eInvMinusPInv.append(float(getattr(ele, "eInvMinusPInv", -999.0)))
                         genElectron_matchedRecoElectron_hoe.append(float(getattr(ele, "hoe", -999.0)))
                         genElectron_matchedRecoElectron_lostHits.append(int(getattr(ele, "lostHits", -1)))
+                        genElectron_matchedRecoElectron_rawEnergy.append(float(getattr(ele, "rawEnergy", -999)))
+
                         
                         ### Nearest Taus are not GEN matched
 
@@ -969,6 +993,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_superclusterEta.append(float(-999.0))
                         genElectron_matchedRecoElectron_vidNestedWPBitmap.append(int(0))
                         genElectron_matchedRecoElectron_cutBased.append(int(0))
+                        genElectron_matchedRecoElectron_vidNestedWPBitmapHEEP.append(int(0))
+                        genElectron_matchedRecoElectron_cutBased_HEEP.append(int(0))
                         genElectron_matchedRecoElectron_genPartFlav.append(int(0))
                         genElectron_matchedRecoElectronIdx.append(int(-1))
                         genElectron_hasMatchedRecoElectron.append(int(0))
@@ -983,6 +1009,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_eInvMinusPInv.append(float(-999.0))
                         genElectron_matchedRecoElectron_hoe.append(float(-999.0))
                         genElectron_matchedRecoElectron_lostHits.append(int(-1))
+                        genElectron_matchedRecoElectron_rawEnergy.append(float(-999.0))
+
 
                         genElectron_matchedRecoElectron_nearestRecoTauIdx.append(int(-1))
                         genElectron_matchedRecoElectron_nearestRecoTau_deltaR.append(float(-999.0))
@@ -1004,7 +1032,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
                         genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSjet.append(int(0))
                         genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe.append(int(0))
                         genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu.append(int(0))
-
+                        
                         genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx.append(int(-1))
                         genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR.append(float(999.0))
                         genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt.append(float(-999.0))
@@ -1053,6 +1081,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
 
                     if reco_idx >= 0:
                         used_reco_muon_indices.add(reco_idx)
+                        nGenMatchedRecoMuonFromHiggsTau += 1
                         mu = muons[reco_idx]
                         loose_id = int(bool(getattr(mu, "looseId", False)))
                         medium_id = int(bool(getattr(mu, "mediumId", False)))
@@ -1131,6 +1160,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenElectronFromHiggsTau_higgsAncestorIdx", genElectron_higgsAncestorIdx)
         self.out.fillBranch("GenElectronFromHiggsTau_resonanceAncestorIdx", genElectron_resonanceAncestorIdx)
 
+        self.out.fillBranch("nGenMatchedRecoElectronFromHiggsTau",int(nGenMatchedRecoElectronFromHiggsTau))
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectronIdx", genElectron_matchedRecoElectronIdx)
         self.out.fillBranch("GenElectronFromHiggsTau_hasMatchedRecoElectron", genElectron_hasMatchedRecoElectron)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pt", genElectron_matchedRecoElectron_pt)
@@ -1139,6 +1169,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_superclusterEta", genElectron_matchedRecoElectron_superclusterEta)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmap", genElectron_matchedRecoElectron_vidNestedWPBitmap)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased", genElectron_matchedRecoElectron_cutBased)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmapHEEP", genElectron_matchedRecoElectron_vidNestedWPBitmapHEEP)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_cutBased_HEEP", genElectron_matchedRecoElectron_cutBased_HEEP)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_genPartFlav", genElectron_matchedRecoElectron_genPartFlav)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_convVeto", genElectron_matchedRecoElectron_convVeto)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_pfRelIso03_all", genElectron_matchedRecoElectron_pfRelIso03_all)
@@ -1151,6 +1183,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_eInvMinusPInv",genElectron_matchedRecoElectron_eInvMinusPInv)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_hoe",genElectron_matchedRecoElectron_hoe)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_lostHits",genElectron_matchedRecoElectron_lostHits)
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_rawEnergy",genElectron_matchedRecoElectron_rawEnergy)
+
 
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_deltaR",genElectron_matchedRecoElectron_deltaR)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestRecoTau_deltaR",genElectron_matchedRecoElectron_nearestRecoTau_deltaR)
@@ -1173,6 +1207,7 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSe)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu", genElectron_matchedRecoElectron_nearestGenMatchedRecoTau_idDeepTau2018v2p5VSmu)
 
+
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_deltaR)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTauIdx)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_pt)
@@ -1181,8 +1216,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_decayMode)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiEle2018)
         self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_idAntiMu)
-        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet", genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet)
-     
+        self.out.fillBranch("GenElectronFromHiggsTau_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet",genElectron_matchedRecoElectron_nearestGenMatchedRecoBoostedTau_rawBoostedDeepTauRunIIv2p0VSjet)
+
         self.out.fillBranch("nGenMuonFromHiggsTau", len(genMuon_pt))
         self.out.fillBranch("GenMuonFromHiggsTau_pt", genMuon_pt)
         self.out.fillBranch("GenMuonFromHiggsTau_eta", genMuon_eta)
@@ -1193,7 +1228,8 @@ class TruthMatchLeptonEfficiencyProducer(Module):
         self.out.fillBranch("GenMuonFromHiggsTau_tauAncestorIdx", genMuon_tauAncestorIdx)
         self.out.fillBranch("GenMuonFromHiggsTau_higgsAncestorIdx", genMuon_higgsAncestorIdx)
         self.out.fillBranch("GenMuonFromHiggsTau_resonanceAncestorIdx", genMuon_resonanceAncestorIdx)
-
+        self.out.fillBranch("nGenMatchedRecoMuonFromHiggsTau",int(nGenMatchedRecoMuonFromHiggsTau))
+        
         self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuonIdx", genMuon_matchedRecoMuonIdx)
         self.out.fillBranch("GenMuonFromHiggsTau_hasMatchedRecoMuon", genMuon_hasMatchedRecoMuon)
         self.out.fillBranch("GenMuonFromHiggsTau_matchedRecoMuon_pt", genMuon_matchedRecoMuon_pt)
@@ -1243,7 +1279,7 @@ def run_one_file(args):
     return input_file
 
 if __name__ == "__main__":
-    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/NewDeltaR_matching_0_3_Added_nearestTau_match"
+    outputDir = "/nfs_scratch/mithakor/ObjectReco_ID_Efficiency/AddedHEEPID"
 
     inputFiles = [
         "/hdfs/store/user/mithakor/2024_Signal_pythiafixed_original_merged/GluGlutoRadiontoHHto2B2Tau_M-1000_narrow_TuneCP5_13p6TeV_madgraph-pythia8.root",

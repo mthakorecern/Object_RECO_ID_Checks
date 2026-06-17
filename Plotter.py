@@ -12,9 +12,6 @@ import ROOT
 ROOT.gROOT.SetBatch(True)
 
 
-# ----------------------------------------------------------------------
-# Helpers
-# ----------------------------------------------------------------------
 def parse_bins(s):
     return [float(x) for x in s.split(",")]
 
@@ -154,10 +151,46 @@ def hps_tau_wp_passes_vsmu(id_value, wp):
 def boosted_tau_raw_passes(raw_score, threshold):
     return float(raw_score) >= float(threshold)
 
+HEEP_CUTS = [
+    "MinPtCut",                              # bit 0
+    "GsfEleSCEtaMultiRangeCut",             # bit 1
+    "GsfEleEBEECut_1",                      # bit 2
+    "GsfEleEBEECut_2",                      # bit 3
+    "GsfEleFull5x5SigmaIEtaIEtaWithSatCut", # bit 4
+    "GsfEleFull5x5E2x5OverE5x5WithSatCut",  # bit 5
+    "GsfEleHadronicOverEMLinearCut",        # bit 6
+    "GsfEleTrkPtIsoCut",                    # bit 7
+    "GsfEleEmHadD1IsoRhoCut",               # bit 8
+    "GsfEleDxyCut",                         # bit 9
+    "GsfEleMissingHitsCut",                 # bit 10
+    "GsfEleEcalDrivenCut",                  # bit 11
+]
 
-# ----------------------------------------------------------------------
-# Process one file
-# ----------------------------------------------------------------------
+def heep_bitmap_passes(bitmap, skip_cuts=None, ncuts=12):
+    """
+    HEEP compressed bitmap:
+      1 bit per cut
+      bit = 1 means pass
+      bit = 0 means fail
+    """
+
+    if skip_cuts is None:
+        skip_cuts = set()
+
+    bitmap = int(bitmap)
+
+    for cut_idx in range(ncuts):
+
+        if cut_idx in skip_cuts:
+            continue
+
+        passed = (bitmap >> cut_idx) & 0x1
+
+        if passed == 0:
+            return False
+
+    return True
+
 def process_file(job):
 
     (
@@ -197,6 +230,7 @@ def process_file(job):
     h_ele_den = make_hist("h_ele_den_" + label, bins)
     h_ele_reco = make_hist("h_ele_reco_" + label, bins)
     h_ele_recoid = make_hist("h_ele_recoid_" + label, bins)
+    h_ele_recoheep = make_hist("h_ele_recoheep_" + label, bins)
 
     # ------------------------------------------------------------------
     # Muon
@@ -275,10 +309,11 @@ def process_file(job):
 
             if ele_pass:
                 h_ele_recoid.Fill(gen_pt)
+                heep_bitmap = int(t.GenElectronFromHiggsTau_matchedRecoElectron_vidNestedWPBitmapHEEP[i])
+                heep_pass = heep_bitmap_passes(heep_bitmap, skip_cuts={7, 8}, ncuts=12)
+                if heep_pass:
+                    h_ele_recoheep.Fill(gen_pt)
 
-        # ==============================================================
-        # MUONS
-        # ==============================================================
         for i in range(int(t.nGenMuonFromHiggsTau)):
 
             gen_pt = float(t.GenMuonFromHiggsTau_pt[i])
@@ -477,6 +512,8 @@ def process_file(job):
             "den": int(h_ele_den.Integral()),
             "reco": int(h_ele_reco.Integral()),
             "recoid": int(h_ele_recoid.Integral()),
+            "recoheep": int(h_ele_recoheep.Integral()),
+
         },
 
         "muon": {
@@ -503,6 +540,7 @@ def process_file(job):
         h_ele_den,
         h_ele_reco,
         h_ele_recoid,
+        h_ele_recoheep,
         h_mu_den,
         h_mu_reco,
         h_mu_recoid,
@@ -524,6 +562,8 @@ def process_file(job):
         "h_ele_den": h_ele_den,
         "h_ele_reco": h_ele_reco,
         "h_ele_recoid": h_ele_recoid,
+        "h_ele_recoheep": h_ele_recoheep,
+
 
         "h_mu_den": h_mu_den,
         "h_mu_reco": h_mu_reco,
@@ -539,9 +579,7 @@ def process_file(job):
     }
 
 
-# ----------------------------------------------------------------------
-# Draw efficiency plots
-# ----------------------------------------------------------------------
+
 def draw_graphs(results, outdir):
 
     colors = [
@@ -558,6 +596,8 @@ def draw_graphs(results, outdir):
     plot_configs = [
         ("electron", "Reco", "h_ele_reco", "h_ele_den"),
         ("electron", "Reco+ID", "h_ele_recoid", "h_ele_den"),
+        ("electron", "Reco+HEEP", "h_ele_recoheep", "h_ele_den"),
+
 
         ("muon", "Reco", "h_mu_reco", "h_mu_den"),
         ("muon", "Reco+ID", "h_mu_recoid", "h_mu_den"),
